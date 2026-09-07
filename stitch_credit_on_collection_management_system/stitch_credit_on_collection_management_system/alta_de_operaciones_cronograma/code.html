@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"inverse-on-surface":"#eaf1ff","surface-container-lowest":"#ffffff","on-primary-fixed-variant":"#3f465c","on-tertiary-fixed-variant":"#6e3900","surface":"#f8f9ff","surface-container-high":"#dce9ff","secondary":"#006c4a","on-secondary":"#ffffff","on-surface-variant":"#45464d","inverse-primary":"#bec6e0","surface-container":"#e5eeff","outline-variant":"#c6c6cd","error":"#ba1a1a","on-secondary-fixed":"#002114","tertiary":"#000000","secondary-fixed-dim":"#68dba9","on-tertiary-fixed":"#2f1500","on-error":"#ffffff","tertiary-fixed":"#ffdcc3","tertiary-container":"#2f1500","surface-container-highest":"#d3e4fe","surface-variant":"#d3e4fe","surface-bright":"#f8f9ff","background":"#f8f9ff","surface-dim":"#cbdbf5","tertiary-fixed-dim":"#ffb77d","error-container":"#ffdad6","on-primary-container":"#7c839b","surface-tint":"#565e74","on-primary":"#ffffff","on-primary-fixed":"#131b2e","primary-fixed":"#dae2fd","primary-fixed-dim":"#bec6e0","on-error-container":"#93000a","on-secondary-container":"#00714e","on-secondary-fixed-variant":"#005137","primary-container":"#131b2e","on-tertiary":"#ffffff","outline":"#76777d","surface-container-low":"#eff4ff","secondary-fixed":"#85f8c4","on-surface":"#0b1c30","inverse-surface":"#213145","on-tertiary-container":"#c76c00","on-background":"#0b1c30","primary":"#000000","secondary-container":"#82f5c1"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"spacing-2xl":"2rem","spacing-base":"1rem","spacing-lg":"1.25rem","spacing-xs":"0.25rem","spacing-2xs":"0.125rem","spacing-sm":"0.5rem","spacing-xl":"1.5rem","gutter-desktop":"1rem","table-cell-py":"0.375rem","table-cell-px":"0.75rem","spacing-md":"0.75rem"},"fontFamily":{"caption":["Inter"],"currency-lg":["JetBrains Mono"],"headline-sm":["Inter"],"currency-md":["JetBrains Mono"],"body-lg":["Inter"],"body-md":["Inter"],"headline-lg":["Inter"],"currency-xl":["JetBrains Mono"],"headline-md":["Inter"],"display-lg":["Inter"],"body-sm":["Inter"],"tabular-label":["JetBrains Mono"]},"fontSize":{"caption":["11px",{"lineHeight":"14px","fontWeight":"500"}],"currency-lg":["18px",{"lineHeight":"24px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-sm":["15px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"600"}],"currency-md":["13px",{"lineHeight":"16px","letterSpacing":"-0.01em","fontWeight":"500"}],"body-lg":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"currency-xl":["26px",{"lineHeight":"32px","letterSpacing":"-0.03em","fontWeight":"700"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"tabular-label":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"500"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-primary-container z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-spacing-lg flex items-center gap-spacing-sm bg-primary-container/80"><span class="material-symbols-outlined text-secondary-fixed text-[22px]">account_balance_wallet</span><div class="flex flex-col"><span class="font-headline-sm text-headline-sm font-bold text-on-primary tracking-tight">CREDIT-ON</span><span class="font-tabular-label text-tabular-label text-on-primary-container tracking-wider uppercase">Cobranzas &amp; Finanzas</span></div></div><div class="px-spacing-md py-spacing-xs"><div class="bg-on-primary-fixed/60 rounded-lg p-spacing-sm mb-spacing-md"><div class="flex items-center justify-between"><span class="font-caption text-caption text-on-primary-container uppercase tracking-wider">Operación Diaria</span><span class="h-2 w-2 rounded-full bg-secondary-fixed"></span></div><div class="mt-spacing-2xs font-currency-md text-currency-md text-on-primary">ARS $486.200</div><div class="font-tabular-label text-tabular-label text-secondary-fixed-dim">Arqueo en curso</div></div></div><nav class="flex flex-col gap-spacing-2xs px-spacing-sm" data-active-classes="bg-secondary text-on-secondary font-semibold shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><a class="flex items-center gap-spacing-sm px-spacing-md py-spacing-sm rounded-lg text-on-primary-container hover:bg-on-primary-fixed/40 hover:text-on-primary transition-colors" data-path="cierre-de-caja-y-arqueo" href="#"><span class="material-symbols-outlined text-[20px]">point_of_sale</span><span class="font-body-md text-body-md">Cierre de Caja y Arqueo</span></a><a class="flex items-center gap-spacing-sm px-spacing-md py-spacing-sm rounded-lg text-on-primary-container hover:bg-on-primary-fixed/40 hover:text-on-primary transition-colors" data-path="patrimonio-y-valuacion" href="#"><span class="material-symbols-outlined text-[20px]">query_stats</span><span class="font-body-md text-body-md">Patrimonio y Valuación</span></a><a aria-current="page" class="flex items-center gap-spacing-sm px-spacing-md py-spacing-sm rounded-lg transition-colors bg-secondary text-on-secondary font-semibold shadow-[0_1px_8px_rgba(0,0,0,0.04)]" data-path="alta-de-operaciones-y-cronograma" href="#"><span class="material-symbols-outlined text-[20px]">add_card</span><span class="font-body-md text-body-md">Alta Operaciones &amp; Cronograma</span></a><a class="flex items-center gap-spacing-sm px-spacing-md py-spacing-sm rounded-lg text-on-primary-container hover:bg-on-primary-fixed/40 hover:text-on-primary transition-colors" data-path="gestion-de-stock-y-recupero-mora" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-body-md text-body-md">Gestión Stock &amp; Recupero</span></a><a class="flex items-center gap-spacing-sm px-spacing-md py-spacing-sm rounded-lg text-on-primary-container hover:bg-on-primary-fixed/40 hover:text-on-primary transition-colors" data-path="hoja-de-ruta-imprimible" href="#"><span class="material-symbols-outlined text-[20px]">print</span><span class="font-body-md text-body-md">Hoja de Ruta (A4)</span></a></nav></div><div class="p-spacing-md bg-on-primary-fixed/40"><div class="flex items-center justify-between text-on-primary-container mb-spacing-2xs"><span class="font-tabular-label text-tabular-label uppercase">Estado Enlace</span><span class="inline-flex items-center gap-spacing-2xs font-tabular-label text-tabular-label text-secondary-fixed"><span class="h-1.5 w-1.5 rounded-full bg-secondary-fixed"></span>Supabase</span></div><div class="font-caption text-caption text-on-primary-container truncate">Host: sde-node-01.primary</div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 z-40 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-spacing-gutter-desktop flex items-center justify-between gap-spacing-md"><div class="flex items-center gap-spacing-md"><img alt="CREDIT-ON Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VFFCsF64hObBbCx_hPxK4L8g7URjqIt2hVg7t4ZIAASiF3gJt69Trum-8N865oBdzeyaFDp5DS3x6Lk7jj5LqBD1t7ROhQhIf8WZ1q5Qd_nJkJVk2vN1bXlS58e5G-l9Rokh536mfgDaqsYhSkb8FXRWb3LU6mjnYgChogmUSOLSCSL38ghxA7P_ZA1t_v9Q_6nWbJVsUqh0Ak2dXKNkKiaOlamFY-T45G1PEZIHLykRVJVuY1KnSxEAk"/><div class="inline-flex items-center gap-spacing-xs bg-surface-container-low px-spacing-sm py-spacing-2xs rounded-lg"><span class="material-symbols-outlined text-on-surface-variant text-[16px]">domain</span><span class="font-caption text-caption text-on-surface font-semibold">Sucursal Central - Santiago del Estero</span></div><div class="hidden xl:inline-flex items-center gap-spacing-xs bg-surface-container-low px-spacing-sm py-spacing-2xs rounded-lg"><span class="material-symbols-outlined text-on-surface-variant text-[16px]">event</span><span class="font-tabular-label text-tabular-label text-on-surface-variant">Sábado, 24 de Mayo 2025 - Turno Tarde</span></div><div class="inline-flex items-center gap-spacing-xs bg-secondary-container px-spacing-sm py-spacing-2xs rounded-lg"><span class="h-2 w-2 rounded-full bg-secondary"></span><span class="font-tabular-label text-tabular-label text-on-secondary-container font-semibold">En línea (Supabase)</span></div></div><div class="flex items-center gap-spacing-md"><div class="text-right hidden sm:block"><div class="font-body-md text-body-md font-semibold text-on-surface leading-none">Carlos Mendilaharzu</div><div class="font-caption text-caption text-on-surface-variant leading-none mt-spacing-2xs">Admin / Dueño</div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="w-full bg-surface-container-low px-spacing-gutter-desktop py-spacing-xs flex flex-wrap items-center justify-between gap-spacing-md"><div class="flex items-center gap-spacing-lg"><div class="inline-flex items-center gap-spacing-xs"><span class="font-caption text-caption text-on-surface-variant uppercase">Caja del Día:</span><span class="font-currency-md text-currency-md font-bold text-secondary">ARS $486.200</span></div><div class="inline-flex items-center gap-spacing-xs"><span class="font-caption text-caption text-on-surface-variant uppercase">Cobradores en calle:</span><span class="font-tabular-label text-tabular-label font-bold text-on-surface">6 activos</span></div><div class="inline-flex items-center gap-spacing-xs"><span class="font-caption text-caption text-on-surface-variant uppercase">Eficiencia de Cobro:</span><span class="font-tabular-label text-tabular-label font-bold text-secondary">94.2%</span></div></div><div class="flex items-center gap-spacing-sm"><span class="font-tabular-label text-tabular-label text-on-surface-variant">Auditoría Activa: Nivel 2</span></div></div></header><main class="relative pt-24 w-full bg-surface min-h-screen px-spacing-gutter-desktop pb-spacing-2xl"><div class="flex flex-col w-full">
+<!-- Top Command Context Bar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-spacing-md mb-spacing-lg bg-surface-container-lowest p-spacing-lg rounded-xl shadow-sm">
+<div class="flex items-center gap-spacing-md">
+<div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[26px]">contract_edit</span>
+</div>
+<div>
+<div class="flex items-center gap-spacing-sm">
+<span class="font-tabular-label text-tabular-label uppercase px-spacing-xs py-spacing-2xs rounded bg-surface-container text-on-surface-variant font-semibold">Módulo Originación v4.2</span>
+<span class="h-1.5 w-1.5 rounded-full bg-secondary"></span>
+<span class="font-tabular-label text-tabular-label text-secondary font-medium">Validación en tiempo real</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-spacing-2xs">Alta de Nueva Operación Crediticia y Simulación de Cronograma</h1>
+</div>
+</div>
+<!-- Sucursal & Operador Quick Switcher -->
+<div class="flex flex-wrap items-center gap-spacing-sm bg-surface-container-low p-spacing-xs rounded-lg">
+<div class="flex items-center gap-spacing-xs px-spacing-sm py-spacing-xs bg-surface-container-lowest rounded shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">storefront</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant leading-none">Sucursal Activa</span>
+<span class="font-headline-sm text-headline-sm text-on-surface leading-none mt-spacing-2xs font-semibold">01 - Central SDE</span>
+</div>
+</div>
+<div class="flex items-center gap-spacing-xs px-spacing-sm py-spacing-xs bg-surface-container-lowest rounded shadow-sm">
+<span class="material-symbols-outlined text-on-primary-container text-[18px]">badge</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant leading-none">Operador Emisor</span>
+<span class="font-headline-sm text-headline-sm text-on-surface leading-none mt-spacing-2xs font-semibold">C. Mendilaharzu [ADM]</span>
+</div>
+</div>
+<button class="p-spacing-xs text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded transition-colors" title="Cambiar terminal u operador">
+<span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+</button>
+</div>
+</div>
+<!-- Primary Grid Workflow (3 Columns: Customer & Product Config / Live Simulation Preview) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-spacing-lg items-start">
+<!-- LEFT & CENTER STACK (Columns 1-7): Setup Pipeline -->
+<div class="xl:col-span-7 flex flex-col gap-spacing-lg">
+<!-- Card 1: Customer Profile & Risk Scoring -->
+<section class="bg-surface-container-lowest p-spacing-lg rounded-xl shadow-sm flex flex-col gap-spacing-md relative overflow-hidden">
+<div class="flex flex-wrap items-center justify-between gap-spacing-sm">
+<div class="flex items-center gap-spacing-xs">
+<span class="material-symbols-outlined text-on-surface text-[20px]">person_pin</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">1. Ficha del Titular / Deudor</h2>
+</div>
+<div class="flex items-center gap-spacing-xs bg-surface-container p-spacing-2xs rounded-lg">
+<button class="px-spacing-sm py-spacing-2xs rounded bg-surface-container-lowest shadow-sm font-caption text-caption font-semibold text-on-surface transition-all" id="btn-existing-client">
+              Búsqueda Rápida
+            </button>
+<button class="px-spacing-sm py-spacing-2xs rounded text-on-surface-variant hover:text-on-surface font-caption text-caption transition-all" id="btn-express-client">
+              Formulario Express (+)
+            </button>
+</div>
+</div>
+<!-- Search input bar -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-spacing-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-surface-container-low pl-10 pr-28 py-spacing-sm rounded font-body-md text-body-md text-on-surface outline-none focus:bg-surface-container-lowest focus:ring-2 ring-secondary/40 transition-all font-medium" placeholder="Buscar por DNI, Apellido o Alias..." type="text" value="Marcelo Alejandro Coronel - DNI 28.491.203"/>
+<span class="absolute right-spacing-sm top-1/2 -translate-y-1/2 font-tabular-label text-tabular-label text-secondary bg-secondary-container px-spacing-xs py-spacing-2xs rounded font-semibold">
+            VERIFICADO
+          </span>
+</div>
+<!-- Verified Customer Data Sheet -->
+<div class="bg-surface-container-low p-spacing-md rounded-lg flex flex-col gap-spacing-sm">
+<div class="flex flex-wrap items-center justify-between gap-spacing-sm pb-spacing-xs bg-surface-container-lowest/60 p-spacing-sm rounded">
+<div class="flex items-center gap-spacing-sm">
+<div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold font-tabular-label text-tabular-label">
+                MC
+              </div>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface block">Marcelo Alejandro Coronel</span>
+<span class="font-tabular-label text-tabular-label text-on-surface-variant">DNI: 28.491.203 • CUIT: 20-28491203-4</span>
+</div>
+</div>
+<div class="inline-flex items-center gap-spacing-xs bg-secondary-container px-spacing-sm py-spacing-xs rounded-full">
+<span class="h-2 w-2 rounded-full bg-secondary"></span>
+<span class="font-caption text-caption text-on-secondary-container font-semibold">Score A: 2 Créditos Cancelados en Término</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-spacing-sm pt-spacing-xs">
+<div class="flex flex-col bg-surface-container-lowest p-spacing-sm rounded">
+<span class="font-caption text-caption text-on-surface-variant uppercase flex items-center gap-spacing-2xs">
+<span class="material-symbols-outlined text-[14px]">pin_drop</span> Domicilio Exacto de Cobranza Diaria
+              </span>
+<span class="font-body-md text-body-md text-on-surface font-medium mt-spacing-2xs">
+                Calle 4 N° 824 - B° Siglo XXI
+              </span>
+<span class="font-tabular-label text-tabular-label text-on-surface-variant">Santiago del Estero (Ref: portón negro reja baja)</span>
+</div>
+<div class="flex flex-col bg-surface-container-lowest p-spacing-sm rounded">
+<span class="font-caption text-caption text-on-surface-variant uppercase flex items-center gap-spacing-2xs">
+<span class="material-symbols-outlined text-[14px]">call</span> Contacto &amp; Zona Asignada
+              </span>
+<div class="flex items-center justify-between mt-spacing-2xs">
+<span class="font-body-md text-body-md text-on-surface font-medium">+54 385 512-3490</span>
+<span class="font-tabular-label text-tabular-label bg-surface-container px-spacing-xs py-spacing-2xs rounded text-on-surface font-semibold">
+                  Zona Sur - Álvaro
+                </span>
+</div>
+<span class="font-tabular-label text-tabular-label text-secondary flex items-center gap-spacing-2xs mt-spacing-2xs">
+<span class="material-symbols-outlined text-[14px]">chat</span> WhatsApp validado activo
+              </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Card 2: Commercial Line Switcher & Configurator -->
+<section class="bg-surface-container-lowest p-spacing-lg rounded-xl shadow-sm flex flex-col gap-spacing-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-spacing-xs">
+<span class="material-symbols-outlined text-on-surface text-[20px]">tune</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">2. Configuración de Línea Comercial</h2>
+</div>
+<span class="font-tabular-label text-tabular-label text-on-surface-variant uppercase tracking-wider">Paso 2 de 3</span>
+</div>
+<!-- Segmented Switcher (Cash vs Goods) -->
+<div class="grid grid-cols-2 gap-spacing-sm p-spacing-xs bg-surface-container-low rounded-xl">
+<button class="commercial-tab active flex items-center justify-center gap-spacing-sm py-spacing-sm px-spacing-md rounded-lg bg-surface-container-lowest shadow-sm text-on-surface transition-all" id="mode-cash" onclick="switchCommercialMode('cash')">
+<span class="material-symbols-outlined text-[22px] text-secondary">payments</span>
+<div class="text-left">
+<span class="font-headline-sm text-headline-sm block font-bold leading-tight">Préstamo en Efectivo</span>
+<span class="font-caption text-caption text-on-surface-variant block">Microcréditos diarios directos</span>
+</div>
+</button>
+<button class="commercial-tab flex items-center justify-center gap-spacing-sm py-spacing-sm px-spacing-md rounded-lg text-on-surface-variant hover:text-on-surface transition-all" id="mode-goods" onclick="switchCommercialMode('goods')">
+<span class="material-symbols-outlined text-[22px]">shelves</span>
+<div class="text-left">
+<span class="font-headline-sm text-headline-sm block font-bold leading-tight">Venta Electrodoméstico</span>
+<span class="font-caption text-caption text-on-surface-variant block">Planes extendidos con stock</span>
+</div>
+</button>
+</div>
+<!-- CASH CONFIGURATOR VIEW (Default Active) -->
+<div class="flex flex-col gap-spacing-lg" id="cash-config-panel">
+<!-- Disbursed Capital Input -->
+<div class="flex flex-col gap-spacing-xs">
+<label class="font-caption text-caption uppercase text-on-surface-variant font-semibold flex items-center justify-between">
+<span>Capital Neto Desembolsado (Efectivo Entregado)</span>
+<span class="text-secondary font-tabular-label">Límite asignado: ARS $250.000</span>
+</label>
+<div class="relative flex items-center">
+<span class="absolute left-spacing-md font-currency-lg text-currency-lg text-on-surface-variant">ARS $</span>
+<input class="w-full bg-surface-container-low pl-20 pr-spacing-md py-spacing-md rounded-lg font-currency-xl text-currency-xl text-on-surface font-bold outline-none focus:bg-surface-container-lowest focus:ring-2 ring-secondary/50 transition-all" id="cash-amount-input" oninput="recalculateSimulation()" type="text" value="100.000,00"/>
+<div class="absolute right-spacing-sm flex items-center gap-spacing-xs">
+<button class="px-spacing-xs py-spacing-2xs bg-surface-container rounded font-tabular-label text-tabular-label hover:bg-surface-container-high transition-colors font-medium" onclick="setFastCapital(50000)" type="button">50k</button>
+<button class="px-spacing-xs py-spacing-2xs bg-secondary-container text-on-secondary-container font-semibold rounded font-tabular-label text-tabular-label hover:opacity-90 transition-opacity" onclick="setFastCapital(100000)" type="button">100k</button>
+<button class="px-spacing-xs py-spacing-2xs bg-surface-container rounded font-tabular-label text-tabular-label hover:bg-surface-container-high transition-colors font-medium" onclick="setFastCapital(150000)" type="button">150k</button>
+</div>
+</div>
+</div>
+<!-- Daily Term / Plan Selectors -->
+<div class="flex flex-col gap-spacing-sm">
+<span class="font-caption text-caption uppercase text-on-surface-variant font-semibold">Seleccionar Plan de Amortización Diaria:</span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-spacing-md">
+<!-- Plan 26 días (Selected by default) -->
+<label class="plan-card relative flex flex-col p-spacing-md rounded-xl bg-surface-container-low cursor-pointer transition-all hover:bg-surface-container-high">
+<input checked="" class="absolute top-spacing-md right-spacing-md h-5 w-5 accent-secondary" name="plan-selector" onchange="handlePlanChange(26)" type="radio" value="26"/>
+<div class="flex items-center gap-spacing-xs mb-spacing-xs">
+<span class="px-spacing-xs py-spacing-2xs bg-secondary text-on-secondary font-tabular-label text-tabular-label font-bold rounded">PLAN 26 DÍAS</span>
+<span class="font-caption text-caption text-secondary font-bold">Tasa Fija 30%</span>
+</div>
+<div class="mt-spacing-xs">
+<span class="font-caption text-caption text-on-surface-variant block">Cuota diaria fija:</span>
+<div class="font-currency-xl text-currency-xl text-on-surface font-bold text-secondary">$5.000 <span class="font-caption text-caption text-on-surface font-normal">/ día</span></div>
+</div>
+<div class="mt-spacing-sm pt-spacing-sm bg-surface-container-lowest/70 p-spacing-xs rounded flex items-center justify-between font-tabular-label text-tabular-label">
+<span class="text-on-surface-variant">Interés: $30.000</span>
+<span class="text-on-surface font-bold">Total: $130.000</span>
+</div>
+</label>
+<!-- Plan 35 días -->
+<label class="plan-card relative flex flex-col p-spacing-md rounded-xl bg-surface-container-low cursor-pointer transition-all hover:bg-surface-container-high opacity-85 hover:opacity-100">
+<input class="absolute top-spacing-md right-spacing-md h-5 w-5 accent-secondary" name="plan-selector" onchange="handlePlanChange(35)" type="radio" value="35"/>
+<div class="flex items-center gap-spacing-xs mb-spacing-xs">
+<span class="px-spacing-xs py-spacing-2xs bg-surface-container-highest text-on-surface font-tabular-label text-tabular-label font-bold rounded">PLAN 35 DÍAS</span>
+<span class="font-caption text-caption text-on-surface-variant font-bold">Tasa Fija 40%</span>
+</div>
+<div class="mt-spacing-xs">
+<span class="font-caption text-caption text-on-surface-variant block">Cuota diaria fija:</span>
+<div class="font-currency-xl text-currency-xl text-on-surface font-bold">$4.000 <span class="font-caption text-caption text-on-surface font-normal">/ día</span></div>
+</div>
+<div class="mt-spacing-sm pt-spacing-sm bg-surface-container-lowest/70 p-spacing-xs rounded flex items-center justify-between font-tabular-label text-tabular-label">
+<span class="text-on-surface-variant">Interés: $40.000</span>
+<span class="text-on-surface font-bold">Total: $140.000</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Profitability & Yield Summary Banner -->
+<div class="p-spacing-md bg-surface-container-high rounded-lg flex flex-wrap items-center justify-between gap-spacing-md">
+<div class="flex items-center gap-spacing-sm">
+<span class="material-symbols-outlined text-secondary text-[24px]">analytics</span>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Retorno Esperado de Inversión (ROI)</span>
+<span class="font-caption text-caption text-on-surface-variant block">Cobranza regular de 26 jornadas operativas continuas sin desvío</span>
+</div>
+</div>
+<div class="flex items-center gap-spacing-md">
+<div class="text-right">
+<span class="font-caption text-caption text-on-surface-variant uppercase">Margen Bruto</span>
+<div class="font-currency-md text-currency-md font-bold text-secondary">+30.0% s/Capital</div>
+</div>
+<div class="text-right">
+<span class="font-caption text-caption text-on-surface-variant uppercase">Utilidad Estimada</span>
+<div class="font-currency-md text-currency-md font-bold text-on-surface">ARS $30.000</div>
+</div>
+</div>
+</div>
+</div>
+<!-- GOODS / PRODUCT CONFIGURATOR VIEW (Collapsible Alternative Mode) -->
+<div class="hidden flex-col gap-spacing-md" id="goods-config-panel">
+<div class="bg-surface-container-low p-spacing-md rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-spacing-sm">
+<span class="material-symbols-outlined text-on-surface text-[22px]">inventory_2</span>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Catálogo Oficial de Artículos en Depósito Central</span>
+<span class="font-caption text-caption text-on-surface-variant block">Artículos homologados para entrega y cobranza domiciliaria</span>
+</div>
+</div>
+<span class="font-tabular-label text-tabular-label bg-secondary-container px-spacing-sm py-spacing-2xs rounded font-bold text-on-secondary-container">12 Artículos en Stock</span>
+</div>
+<!-- Goods Selector Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-spacing-sm">
+<div class="p-spacing-sm rounded-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex items-center justify-between mb-spacing-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">tv</span>
+<span class="font-tabular-label text-tabular-label bg-surface-container px-spacing-2xs rounded text-on-surface font-semibold">Stock: 4</span>
+</div>
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Smart TV 43'' FHD</span>
+<span class="font-caption text-caption text-on-surface-variant">Precio Contado: $380.000</span>
+<div class="mt-spacing-sm pt-spacing-xs bg-surface-container-low p-spacing-xs rounded">
+<span class="font-tabular-label text-tabular-label text-secondary font-bold block">84 cuotas de $8.200</span>
+<span class="font-caption text-caption text-on-surface-variant">Total: $688.800</span>
+</div>
+</div>
+<div class="p-spacing-sm rounded-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex items-center justify-between mb-spacing-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">kitchen</span>
+<span class="font-tabular-label text-tabular-label bg-surface-container px-spacing-2xs rounded text-on-surface font-semibold">Stock: 2</span>
+</div>
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Heladera No Frost 310L</span>
+<span class="font-caption text-caption text-on-surface-variant">Precio Contado: $640.000</span>
+<div class="mt-spacing-sm pt-spacing-xs bg-surface-container-low p-spacing-xs rounded">
+<span class="font-tabular-label text-tabular-label text-secondary font-bold block">135 cuotas de $9.500</span>
+<span class="font-caption text-caption text-on-surface-variant">Total: $1.282.500</span>
+</div>
+</div>
+<div class="p-spacing-sm rounded-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex items-center justify-between mb-spacing-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">two_wheeler</span>
+<span class="font-tabular-label text-tabular-label bg-surface-container px-spacing-2xs rounded text-on-surface font-semibold">Stock: 1</span>
+</div>
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Motovehículo 110cc Base</span>
+<span class="font-caption text-caption text-on-surface-variant">Precio Contado: $1.450.000</span>
+<div class="mt-spacing-sm pt-spacing-xs bg-surface-container-low p-spacing-xs rounded">
+<span class="font-tabular-label text-tabular-label text-secondary font-bold block">220 cuotas de $14.800</span>
+<span class="font-caption text-caption text-on-surface-variant">Total: $3.256.000</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Operational Action Bar -->
+<section class="bg-surface-container-lowest p-spacing-lg rounded-xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-spacing-md">
+<div class="flex items-center gap-spacing-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-secondary">verified_user</span>
+<span class="font-caption text-caption">Trazabilidad criptográfica vinculada a nodo Supabase</span>
+</div>
+<div class="flex flex-wrap items-center gap-spacing-sm w-full sm:w-auto justify-end">
+<button class="px-spacing-md py-spacing-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm font-medium transition-colors flex items-center gap-spacing-xs" onclick="triggerPrintModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Imprimir Pagaré</span>
+</button>
+<button class="px-spacing-md py-spacing-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm font-medium transition-colors flex items-center gap-spacing-xs" onclick="triggerWhatsappDispatch()" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">send_to_mobile</span>
+<span>Enviar WhatsApp</span>
+</button>
+<button class="px-spacing-lg py-spacing-sm rounded-lg bg-secondary hover:bg-secondary/90 text-on-secondary font-headline-sm text-headline-sm font-semibold shadow-md transition-all flex items-center gap-spacing-xs" onclick="openConfirmationModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Confirmar y Dar de Alta</span>
+</button>
+</div>
+</section>
+</div>
+<!-- RIGHT STACK (Columns 8-12): Real-Time Schedule Simulation Preview -->
+<div class="xl:col-span-5 flex flex-col gap-spacing-md">
+<!-- Preview Header Card -->
+<div class="bg-surface-container-lowest p-spacing-lg rounded-xl shadow-sm flex flex-col gap-spacing-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-spacing-xs">
+<span class="material-symbols-outlined text-secondary text-[22px]">calendar_month</span>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">Simulación de Cronograma</h3>
+</div>
+<span class="font-tabular-label text-tabular-label bg-surface-container px-spacing-sm py-spacing-2xs rounded text-on-surface font-semibold">26 Cuotas Hábiles</span>
+</div>
+<!-- Business Rules Alert -->
+<div class="bg-surface-container-low p-spacing-sm rounded-lg flex items-start gap-spacing-sm">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">event_busy</span>
+<p class="font-caption text-caption text-on-surface-variant leading-relaxed">
+<strong class="text-on-surface font-semibold">Regla de cobro:</strong> Los domingos quedan excluidos de la cobranza de manera estricta. Feriados postergan automáticamente la exigibilidad al próximo día hábil.
+          </p>
+</div>
+<!-- Key Milestones Bar -->
+<div class="grid grid-cols-2 gap-spacing-sm bg-surface-container-low p-spacing-sm rounded-lg">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant uppercase">Fecha Inicio</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Lun, 26 May 2025</span>
+<span class="font-tabular-label text-tabular-label text-secondary">Primer cobro en calle</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-caption text-caption text-on-surface-variant uppercase">Vencimiento Final</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Mié, 25 Jun 2025</span>
+<span class="font-tabular-label text-tabular-label text-on-surface-variant">31 días corridos</span>
+</div>
+</div>
+<!-- Metric KPI Pill -->
+<div class="flex items-center justify-between p-spacing-sm bg-secondary/10 rounded-lg text-secondary">
+<div class="flex items-center gap-spacing-xs">
+<span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
+<span class="font-caption text-caption font-semibold uppercase">Total Exigible al Cobrador:</span>
+</div>
+<span class="font-currency-lg text-currency-lg font-bold">$5.000 / día</span>
+</div>
+<!-- High Fidelity Scrollable Cuotas Table -->
+<div class="flex flex-col rounded-lg overflow-hidden bg-surface-container-lowest">
+<div class="max-h-[520px] overflow-y-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="sticky top-0 bg-surface-container text-on-surface-variant font-tabular-label text-tabular-label uppercase select-none z-10">
+<tr>
+<th class="py-spacing-xs px-spacing-sm font-semibold">N°</th>
+<th class="py-spacing-xs px-spacing-sm font-semibold">Vencimiento</th>
+<th class="py-spacing-xs px-spacing-sm font-semibold text-right">Cuota</th>
+<th class="py-spacing-xs px-spacing-sm font-semibold text-right">Saldo Rest.</th>
+<th class="py-spacing-xs px-spacing-sm font-semibold text-center">Estado</th>
+</tr>
+</thead>
+<tbody class="divide-y-0" id="schedule-tbody">
+<!-- Programmed rows auto-populated by script -->
+</tbody>
+</table>
+</div>
+<div class="p-spacing-sm bg-surface-container-low flex items-center justify-between font-tabular-label text-tabular-label text-on-surface-variant">
+<span>26 Registros Generados</span>
+<span class="font-bold text-on-surface">Total Liquidación: ARS $130.000</span>
+</div>
+</div>
+</div>
+<!-- Route Verification Snippet Card -->
+<div class="bg-surface-container-lowest p-spacing-md rounded-xl shadow-sm flex items-center justify-between gap-spacing-md">
+<div class="flex items-center gap-spacing-sm">
+<div class="w-10 h-10 rounded bg-surface-container-high flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[20px]">route</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Hoja de Ruta #04 - Zona Sur</span>
+<span class="font-caption text-caption text-on-surface-variant block">Posición sugerida de visita: Parada 14 (17:40 hs)</span>
+</div>
+</div>
+<span class="font-tabular-label text-tabular-label text-secondary font-bold">Cobrador Álvaro</span>
+</div>
+</div>
+</div>
+<!-- POPUP MODAL: Operational Commitment Confirmation -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm hidden items-center justify-center p-spacing-base" id="confirm-modal">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-xl shadow-xl p-spacing-xl flex flex-col gap-spacing-lg animate-in fade-in zoom-in-95 duration-150">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-spacing-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[22px]">verified</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface font-bold">Confirmar Emisión de Crédito</h4>
+<span class="font-tabular-label text-tabular-label text-on-surface-variant">Transacción Inmutable #CR-2025-0841</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" onclick="closeConfirmationModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-spacing-md rounded-lg flex flex-col gap-spacing-xs">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Titular deudor:</span>
+<span class="font-bold text-on-surface">Marcelo Alejandro Coronel (DNI 28.491.203)</span>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Desembolso efectivo:</span>
+<span class="font-currency-md text-currency-md font-bold text-secondary">ARS $100.000,00</span>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Plan de amortización:</span>
+<span class="font-tabular-label text-tabular-label font-semibold text-on-surface">26 cuotas diarias de $5.000</span>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Monto total a recuperar:</span>
+<span class="font-currency-md text-currency-md font-bold text-on-surface">ARS $130.000,00</span>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Zona de cobranza:</span>
+<span class="font-tabular-label text-tabular-label text-on-surface">Zona Sur - Álvaro</span>
+</div>
+</div>
+<div class="p-spacing-sm rounded bg-surface-container-high text-on-surface-variant font-caption text-caption flex items-center gap-spacing-xs">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span>Al confirmar se descontará automáticamente el efectivo de la Caja Central Turno Tarde.</span>
+</div>
+<div class="flex items-center justify-end gap-spacing-sm">
+<button class="px-spacing-md py-spacing-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm font-medium transition-colors" onclick="closeConfirmationModal()">
+          Cancelar
+        </button>
+<button class="px-spacing-lg py-spacing-sm rounded-lg bg-secondary hover:bg-secondary/90 text-on-secondary font-headline-sm text-headline-sm font-semibold shadow-md transition-all flex items-center gap-spacing-xs" onclick="commitOperation()">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span>Efectivizar y Asignar a Ruta</span>
+</button>
+</div>
+</div>
+</div>
+<!-- NOTIFICATION TOAST (Dispatched on actions) -->
+<div class="fixed bottom-6 right-6 z-50 hidden bg-surface-container-lowest px-spacing-lg py-spacing-md rounded-xl shadow-xl flex items-center gap-spacing-md transform transition-all duration-300" id="status-toast">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container" id="toast-icon-wrapper">
+<span class="material-symbols-outlined text-[18px]" id="toast-icon">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold" id="toast-title">Operación Registrada</span>
+<span class="font-caption text-caption text-on-surface-variant" id="toast-message">El cronograma fue transmitido con éxito.</span>
+</div>
+</div>
+</div>
+<script>
+  // Schedule Dataset & Generator (Excluding Sundays)
+  const simulationData = [
+    { num: "01/26", day: "Lun 26/05", fee: 5000, balance: 125000, state: "Programado" },
+    { num: "02/26", day: "Mar 27/05", fee: 5000, balance: 120000, state: "Programado" },
+    { num: "03/26", day: "Mié 28/05", fee: 5000, balance: 115000, state: "Programado" },
+    { num: "04/26", day: "Jue 29/05", fee: 5000, balance: 110000, state: "Programado" },
+    { num: "05/26", day: "Vie 30/05", fee: 5000, balance: 105000, state: "Programado" },
+    { num: "06/26", day: "Sáb 31/05", fee: 5000, balance: 100000, state: "Programado" },
+    // Domingo 01/06 Excluido
+    { num: "07/26", day: "Lun 02/06", fee: 5000, balance: 95000, state: "Programado" },
+    { num: "08/26", day: "Mar 03/06", fee: 5000, balance: 90000, state: "Programado" },
+    { num: "09/26", day: "Mié 04/06", fee: 5000, balance: 85000, state: "Programado" },
+    { num: "10/26", day: "Jue 05/06", fee: 5000, balance: 80000, state: "Programado" },
+    { num: "11/26", day: "Vie 06/06", fee: 5000, balance: 75000, state: "Programado" },
+    { num: "12/26", day: "Sáb 07/06", fee: 5000, balance: 70000, state: "Programado" },
+    // Domingo 08/06 Excluido
+    { num: "13/26", day: "Lun 09/06", fee: 5000, balance: 65000, state: "Programado" },
+    { num: "14/26", day: "Mar 10/06", fee: 5000, balance: 60000, state: "Programado" },
+    { num: "15/26", day: "Mié 11/06", fee: 5000, balance: 55000, state: "Programado" },
+    { num: "16/26", day: "Jue 12/06", fee: 5000, balance: 50000, state: "Programado" },
+    { num: "17/26", day: "Vie 13/06", fee: 5000, balance: 45000, state: "Programado" },
+    { num: "18/26", day: "Sáb 14/06", fee: 5000, balance: 40000, state: "Programado" },
+    // Domingo 15/06 Excluido
+    { num: "19/26", day: "Lun 16/06", fee: 5000, balance: 35000, state: "Programado" },
+    { num: "20/26", day: "Mar 17/06", fee: 5000, balance: 30000, state: "Programado" },
+    { num: "21/26", day: "Mié 18/06", fee: 5000, balance: 25000, state: "Programado" },
+    { num: "22/26", day: "Jue 19/06", fee: 5000, balance: 20000, state: "Programado" },
+    { num: "23/26", day: "Vie 20/06", fee: 5000, balance: 15000, state: "Programado" },
+    { num: "24/26", day: "Sáb 21/06", fee: 5000, balance: 10000, state: "Programado" },
+    // Domingo 22/06 Excluido
+    { num: "25/26", day: "Lun 23/06", fee: 5000, balance: 5000, state: "Programado" },
+    { num: "26/26", day: "Mié 25/06", fee: 5000, balance: 0, state: "Programado" }
+  ];
+
+  function renderSimulationTable() {
+    const tbody = document.getElementById('schedule-tbody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    simulationData.forEach((row, idx) => {
+      const tr = document.createElement('tr');
+      tr.className = `border-none hover:bg-surface-container-low transition-colors ${idx % 2 === 0 ? 'bg-surface-container-lowest' : 'bg-surface-container-low/40'}`;
+      
+      tr.innerHTML = `
+        <td class="py-spacing-xs px-spacing-sm font-tabular-label text-tabular-label text-on-surface font-semibold">${row.num}</td>
+        <td class="py-spacing-xs px-spacing-sm font-body-sm text-body-sm text-on-surface flex items-center gap-spacing-2xs">
+          <span>${row.day}</span>
+        </td>
+        <td class="py-spacing-xs px-spacing-sm font-currency-md text-currency-md text-right font-medium text-secondary">
+          $${row.fee.toLocaleString('es-AR')}
+        </td>
+        <td class="py-spacing-xs px-spacing-sm font-currency-md text-currency-md text-right text-on-surface-variant font-medium">
+          $${row.balance.toLocaleString('es-AR')}
+        </td>
+        <td class="py-spacing-xs px-spacing-sm text-center">
+          <span class="inline-flex items-center gap-1 font-caption text-caption px-spacing-xs py-spacing-2xs rounded-full bg-surface-container text-on-surface-variant font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            ${row.state}
+          </span>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function switchCommercialMode(mode) {
+    const cashPanel = document.getElementById('cash-config-panel');
+    const goodsPanel = document.getElementById('goods-config-panel');
+    const cashTab = document.getElementById('mode-cash');
+    const goodsTab = document.getElementById('mode-goods');
+
+    if (mode === 'cash') {
+      cashPanel.classList.remove('hidden');
+      cashPanel.classList.add('flex');
+      goodsPanel.classList.add('hidden');
+      goodsPanel.classList.remove('flex');
+      
+      cashTab.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-on-surface');
+      cashTab.classList.remove('text-on-surface-variant');
+      goodsTab.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-on-surface');
+      goodsTab.classList.add('text-on-surface-variant');
+    } else {
+      goodsPanel.classList.remove('hidden');
+      goodsPanel.classList.add('flex');
+      cashPanel.classList.add('hidden');
+      cashPanel.classList.remove('flex');
+
+      goodsTab.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-on-surface');
+      goodsTab.classList.remove('text-on-surface-variant');
+      cashTab.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-on-surface');
+      cashTab.classList.add('text-on-surface-variant');
+    }
+  }
+
+  function setFastCapital(val) {
+    const input = document.getElementById('cash-amount-input');
+    if (input) {
+      input.value = val.toLocaleString('es-AR') + ',00';
+      recalculateSimulation();
+    }
+  }
+
+  function handlePlanChange(days) {
+    showToast('Plan Seleccionado', `Cronograma actualizado para ${days} jornadas hábiles.`);
+  }
+
+  function recalculateSimulation() {
+    // Interactive hook for recalculation
+  }
+
+  function openConfirmationModal() {
+    const modal = document.getElementById('confirm-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+  }
+
+  function closeConfirmationModal() {
+    const modal = document.getElementById('confirm-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  function commitOperation() {
+    closeConfirmationModal();
+    showToast('¡Operación Emitida con Éxito!', 'Crédito registrado, caja debitada y cronograma asignado a Hoja de Ruta.');
+  }
+
+  function triggerPrintModal() {
+    showToast('Generando Documentación Legal', 'Imprimiendo contrato con firma ológrafa y pagaré sin protesto...');
+  }
+
+  function triggerWhatsappDispatch() {
+    showToast('Envío de WhatsApp', 'Planilla de cuotas y recibo digital enviada a +54 385 512-3490.');
+  }
+
+  function showToast(title, msg) {
+    const toast = document.getElementById('status-toast');
+    const toastTitle = document.getElementById('toast-title');
+    const toastMsg = document.getElementById('toast-message');
+    if (!toast) return;
+
+    toastTitle.innerText = title;
+    toastMsg.innerText = msg;
+
+    toast.classList.remove('hidden');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+    }, 4000);
+  }
+
+  // Initialize view table on render
+  renderSimulationTable();
+</script></main></div></body></html>

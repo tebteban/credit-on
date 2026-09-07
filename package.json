@@ -1,0 +1,37 @@
+{
+  "name": "credit-on-desktop",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Sistema Integral de Gestión Crediticia, Cobranzas y Arqueo - CREDIT-ON",
+  "main": "./out/main/index.js",
+  "author": "CREDIT-ON Dev Team",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "dev:web": "vite src/renderer --port 3000 --host",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "test:payments": "npx tsx src/services/payment-service.test.ts",
+    "test:calendar": "npx tsx src/core/calendar-engine.ts test"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.475.0",
+    "tailwind-merge": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "electron": "^34.2.0",
+    "electron-vite": "^2.3.0",
+    "postcss": "^8.5.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.14"
+  }
+}

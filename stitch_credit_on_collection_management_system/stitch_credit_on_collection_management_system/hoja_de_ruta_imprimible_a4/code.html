@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"inverse-on-surface":"#eaf1ff","surface-container-lowest":"#ffffff","on-primary-fixed-variant":"#3f465c","on-tertiary-fixed-variant":"#6e3900","surface":"#f8f9ff","surface-container-high":"#dce9ff","secondary":"#006c4a","on-secondary":"#ffffff","on-surface-variant":"#45464d","inverse-primary":"#bec6e0","surface-container":"#e5eeff","outline-variant":"#c6c6cd","error":"#ba1a1a","on-secondary-fixed":"#002114","tertiary":"#000000","secondary-fixed-dim":"#68dba9","on-tertiary-fixed":"#2f1500","on-error":"#ffffff","tertiary-fixed":"#ffdcc3","tertiary-container":"#2f1500","surface-container-highest":"#d3e4fe","surface-variant":"#d3e4fe","surface-bright":"#f8f9ff","background":"#f8f9ff","surface-dim":"#cbdbf5","tertiary-fixed-dim":"#ffb77d","error-container":"#ffdad6","on-primary-container":"#7c839b","surface-tint":"#565e74","on-primary":"#ffffff","on-primary-fixed":"#131b2e","primary-fixed":"#dae2fd","primary-fixed-dim":"#bec6e0","on-error-container":"#93000a","on-secondary-container":"#00714e","on-secondary-fixed-variant":"#005137","primary-container":"#131b2e","on-tertiary":"#ffffff","outline":"#76777d","surface-container-low":"#eff4ff","secondary-fixed":"#85f8c4","on-surface":"#0b1c30","inverse-surface":"#213145","on-tertiary-container":"#c76c00","on-background":"#0b1c30","primary":"#000000","secondary-container":"#82f5c1"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"spacing-2xl":"2rem","spacing-base":"1rem","spacing-lg":"1.25rem","spacing-xs":"0.25rem","spacing-2xs":"0.125rem","spacing-sm":"0.5rem","spacing-xl":"1.5rem","gutter-desktop":"1rem","table-cell-py":"0.375rem","table-cell-px":"0.75rem","spacing-md":"0.75rem"},"fontFamily":{"caption":["Inter"],"currency-lg":["JetBrains Mono"],"headline-sm":["Inter"],"currency-md":["JetBrains Mono"],"body-lg":["Inter"],"body-md":["Inter"],"headline-lg":["Inter"],"currency-xl":["JetBrains Mono"],"headline-md":["Inter"],"display-lg":["Inter"],"body-sm":["Inter"],"tabular-label":["JetBrains Mono"]},"fontSize":{"caption":["11px",{"lineHeight":"14px","fontWeight":"500"}],"currency-lg":["18px",{"lineHeight":"24px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-sm":["15px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"600"}],"currency-md":["13px",{"lineHeight":"16px","letterSpacing":"-0.01em","fontWeight":"500"}],"body-lg":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"currency-xl":["26px",{"lineHeight":"32px","letterSpacing":"-0.03em","fontWeight":"700"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"tabular-label":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"500"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-primary-container z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-spacing-lg flex items-center gap-spacing-sm bg-primary-container/80"><span class="material-symbols-outlined text-secondary-fixed text-[22px]">account_balance_wallet</span><div class="flex flex-col"><span class="font-headline-sm text-headline-sm font-bold text-on-primary tracking-tight">CREDIT-ON</span><span class="font-tabular-label text-tabular-label text-on-primary-container tracking-wider uppercase">Cobranzas &amp; Finanzas</span></div></div><div class="px-spacing-md py-spacing-xs"><div class="bg-on-primary-fixed/60 rounded-lg p-spacing-sm mb-spacing-md"><div class="flex items-center justify-between"><span class="font-caption text-caption text-on-primary-container uppercase tracking-wider">Operación Diaria</span><span class="h-2 w-2 rounded-full bg-secondary-fixed"></span></div><div class="mt-spacing-2xs font-currency-md text-currency-md text-on-primary">ARS $486.200</div><div class="font-tabular-label text-tabular-label text-secondary-fixed-dim">Arqueo en curso</div></div></div><nav class="flex flex-col gap-spacing-2xs px-spacing-sm" data-active-classes="bg-secondary text-on-secondary font-semibold shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><a class="flex items-center gap-spacing-sm px-spacing-md py-spacing-sm rounded-lg text-on-primary-container hover:bg-on-primary-fixed/40 hover:text-on-primary transition-colors" data-path="cierre-de-caja-y-arqueo" href="#"><span class="material-symbols-outlined text-[20px]">point_of_sale</span><span class="font-body-md text-body-md">Cierre de Caja y Arqueo</span></a><a class="flex items-center gap-spacing-sm px-spacing-md py-spacing-sm rounded-lg text-on-primary-container hover:bg-on-primary-fixed/40 hover:text-on-primary transition-colors" data-path="patrimonio-y-valuacion" href="#"><span class="material-symbols-outlined text-[20px]">query_stats</span><span class="font-body-md text-body-md">Patrimonio y Valuación</span></a><a class="flex items-center gap-spacing-sm px-spacing-md py-spacing-sm rounded-lg text-on-primary-container hover:bg-on-primary-fixed/40 hover:text-on-primary transition-colors" data-path="alta-de-operaciones-y-cronograma" href="#"><span class="material-symbols-outlined text-[20px]">add_card</span><span class="font-body-md text-body-md">Alta Operaciones &amp; Cronograma</span></a><a class="flex items-center gap-spacing-sm px-spacing-md py-spacing-sm rounded-lg text-on-primary-container hover:bg-on-primary-fixed/40 hover:text-on-primary transition-colors" data-path="gestion-de-stock-y-recupero-mora" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-body-md text-body-md">Gestión Stock &amp; Recupero</span></a><a aria-current="page" class="flex items-center gap-spacing-sm px-spacing-md py-spacing-sm rounded-lg transition-colors bg-secondary text-on-secondary font-semibold shadow-[0_1px_8px_rgba(0,0,0,0.04)]" data-path="hoja-de-ruta-imprimible" href="#"><span class="material-symbols-outlined text-[20px]">print</span><span class="font-body-md text-body-md">Hoja de Ruta (A4)</span></a></nav></div><div class="p-spacing-md bg-on-primary-fixed/40"><div class="flex items-center justify-between text-on-primary-container mb-spacing-2xs"><span class="font-tabular-label text-tabular-label uppercase">Estado Enlace</span><span class="inline-flex items-center gap-spacing-2xs font-tabular-label text-tabular-label text-secondary-fixed"><span class="h-1.5 w-1.5 rounded-full bg-secondary-fixed"></span>Supabase</span></div><div class="font-caption text-caption text-on-primary-container truncate">Host: sde-node-01.primary</div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 z-40 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-spacing-gutter-desktop flex items-center justify-between gap-spacing-md"><div class="flex items-center gap-spacing-md"><img alt="CREDIT-ON Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VFFCsF64hObBbCx_hPxK4L8g7URjqIt2hVg7t4ZIAASiF3gJt69Trum-8N865oBdzeyaFDp5DS3x6Lk7jj5LqBD1t7ROhQhIf8WZ1q5Qd_nJkJVk2vN1bXlS58e5G-l9Rokh536mfgDaqsYhSkb8FXRWb3LU6mjnYgChogmUSOLSCSL38ghxA7P_ZA1t_v9Q_6nWbJVsUqh0Ak2dXKNkKiaOlamFY-T45G1PEZIHLykRVJVuY1KnSxEAk"/><div class="inline-flex items-center gap-spacing-xs bg-surface-container-low px-spacing-sm py-spacing-2xs rounded-lg"><span class="material-symbols-outlined text-on-surface-variant text-[16px]">domain</span><span class="font-caption text-caption text-on-surface font-semibold">Sucursal Central - Santiago del Estero</span></div><div class="hidden xl:inline-flex items-center gap-spacing-xs bg-surface-container-low px-spacing-sm py-spacing-2xs rounded-lg"><span class="material-symbols-outlined text-on-surface-variant text-[16px]">event</span><span class="font-tabular-label text-tabular-label text-on-surface-variant">Sábado, 24 de Mayo 2025 - Turno Tarde</span></div><div class="inline-flex items-center gap-spacing-xs bg-secondary-container px-spacing-sm py-spacing-2xs rounded-lg"><span class="h-2 w-2 rounded-full bg-secondary"></span><span class="font-tabular-label text-tabular-label text-on-secondary-container font-semibold">En línea (Supabase)</span></div></div><div class="flex items-center gap-spacing-md"><div class="text-right hidden sm:block"><div class="font-body-md text-body-md font-semibold text-on-surface leading-none">Carlos Mendilaharzu</div><div class="font-caption text-caption text-on-surface-variant leading-none mt-spacing-2xs">Admin / Dueño</div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="w-full bg-surface-container-low px-spacing-gutter-desktop py-spacing-xs flex flex-wrap items-center justify-between gap-spacing-md"><div class="flex items-center gap-spacing-lg"><div class="inline-flex items-center gap-spacing-xs"><span class="font-caption text-caption text-on-surface-variant uppercase">Caja del Día:</span><span class="font-currency-md text-currency-md font-bold text-secondary">ARS $486.200</span></div><div class="inline-flex items-center gap-spacing-xs"><span class="font-caption text-caption text-on-surface-variant uppercase">Cobradores en calle:</span><span class="font-tabular-label text-tabular-label font-bold text-on-surface">6 activos</span></div><div class="inline-flex items-center gap-spacing-xs"><span class="font-caption text-caption text-on-surface-variant uppercase">Eficiencia de Cobro:</span><span class="font-tabular-label text-tabular-label font-bold text-secondary">94.2%</span></div></div><div class="flex items-center gap-spacing-sm"><span class="font-tabular-label text-tabular-label text-on-surface-variant">Auditoría Activa: Nivel 2</span></div></div></header><main class="relative pt-24 w-full bg-surface min-h-screen px-spacing-gutter-desktop pb-spacing-2xl"><div class="flex flex-col w-full">
+<!-- Interactive Control Deck (Screen Only) -->
+<section class="w-full bg-surface-container-lowest rounded-xl p-spacing-lg mb-spacing-xl shadow-sm flex flex-col xl:flex-row xl:items-center justify-between gap-spacing-md">
+<div class="flex flex-col gap-spacing-2xs">
+<div class="flex items-center gap-spacing-xs">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-secondary/10 text-secondary">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</span>
+<span class="font-tabular-label text-tabular-label uppercase text-on-surface-variant font-bold">Módulo de Contingencia Física</span>
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-surface-container font-caption text-caption text-on-surface font-semibold">Resolución A4 (300 DPI)</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Hoja de Ruta de Cobranza Diaria - Planilla Oficial de Contingencia (A4)</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Plantilla vectorial de respaldo para operaciones sin conectividad y rendición física obligatoria en tesorería central.</p>
+</div>
+<div class="flex flex-wrap items-center gap-spacing-sm">
+<div class="flex items-center bg-surface-container-low rounded-lg px-spacing-sm py-spacing-2xs gap-spacing-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">two_wheeler</span>
+<label class="sr-only" for="route-collector-select">Cobrador</label>
+<select class="bg-transparent font-body-sm text-body-sm font-semibold text-on-surface outline-none cursor-pointer" id="route-collector-select">
+<option selected="" value="cob-04">Ariel González (Zona Centro / Ruta 01)</option>
+<option value="cob-02">Marcos Soria (Zona Banda / Ruta 03)</option>
+<option value="cob-05">Esteban Paz (Zona Sur / Ruta 02)</option>
+</select>
+</div>
+<div class="flex items-center bg-surface-container-low rounded-lg px-spacing-sm py-spacing-2xs gap-spacing-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">calendar_today</span>
+<input class="bg-transparent font-tabular-label text-tabular-label text-on-surface font-semibold w-44 cursor-default outline-none" readonly="" type="text" value="Sábado, 24 de Mayo 2025"/>
+</div>
+<button class="inline-flex items-center gap-spacing-xs bg-secondary text-on-secondary px-spacing-md py-spacing-sm rounded-lg font-headline-sm text-headline-sm hover:opacity-90 active:scale-[0.99] transition shadow-sm cursor-pointer" id="trigger-print-btn" onclick="window.print()">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Imprimir Planilla A4</span>
+</button>
+<button class="inline-flex items-center gap-spacing-xs bg-primary-container text-on-primary px-spacing-md py-spacing-sm rounded-lg font-headline-sm text-headline-sm hover:opacity-90 active:scale-[0.99] transition shadow-sm cursor-pointer" id="export-pdf-action" onclick="alert('Generando archivo vectorial PDF con microfiligrana de seguridad...')">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span>Descargar PDF Vectorial</span>
+</button>
+</div>
+</section>
+<!-- Simulated Physical Sheet Viewport -->
+<div class="w-full flex justify-center items-start pb-spacing-2xl">
+<!-- Printable Document (A4 Ratio ~ 210mm x 297mm styled container) -->
+<article class="w-full max-w-[1080px] bg-surface-container-lowest text-on-surface shadow-xl rounded-xl p-8 flex flex-col justify-between select-text" id="a4-document-root">
+<!-- PAGE UPPER SECTION -->
+<div>
+<!-- Institutional Header Grid -->
+<header class="w-full pb-spacing-md mb-spacing-md flex flex-col md:flex-row md:items-center justify-between gap-spacing-md">
+<div class="flex items-start gap-spacing-md">
+<div class="h-12 w-12 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-[28px]">account_balance_wallet</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-spacing-xs">
+<span class="font-currency-xl text-headline-md font-bold tracking-tight text-on-surface">CREDIT-ON</span>
+<span class="font-tabular-label text-tabular-label px-spacing-xs py-spacing-2xs bg-surface-container rounded uppercase text-on-surface font-semibold">Formulario Oficial R-42</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Sistema Integral de Microcréditos y Cobranzas Domiciliarias</span>
+<span class="font-tabular-label text-caption text-on-surface-variant">Sucursal Central Santiago del Estero • CUIT: 30-71829304-8 • Tel: (0385) 421-9800</span>
+</div>
+</div>
+<div class="flex flex-col items-start md:items-end text-left md:text-right bg-surface-container-low p-spacing-sm rounded-lg">
+<div class="font-tabular-label text-tabular-label text-secondary font-bold uppercase tracking-wider">Planilla de Rendición Diaria</div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-bold">RUTA #01 - CENTRO &amp; BANCARIO</div>
+<div class="font-caption text-caption text-on-surface-variant">Código de Seguridad Único: <span class="font-tabular-label text-tabular-label text-on-surface font-semibold">SDE-20250524-COB04</span></div>
+</div>
+</header>
+<!-- Route Metadata & Tactical Stats Strip -->
+<div class="w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-spacing-sm bg-surface-container-low p-spacing-sm rounded-lg mb-spacing-md">
+<div class="flex flex-col">
+<span class="font-caption text-caption uppercase text-on-surface-variant font-bold">Cobrador Asignado</span>
+<span class="font-body-sm text-body-sm font-bold text-on-surface">Ariel González</span>
+<span class="font-tabular-label text-caption text-on-surface-variant">Legajo: #COB-04</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption uppercase text-on-surface-variant font-bold">Supervisor Operativo</span>
+<span class="font-body-sm text-body-sm font-bold text-on-surface">Walter R. (Mesa 01)</span>
+<span class="font-tabular-label text-caption text-on-surface-variant">Control Turno Tarde</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption uppercase text-on-surface-variant font-bold">Fecha / Jornada</span>
+<span class="font-tabular-label text-body-sm font-bold text-on-surface">24/05/2025</span>
+<span class="font-caption text-caption text-on-surface-variant">08:30 a 14:00 hs</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption uppercase text-on-surface-variant font-bold">Padrón Clientes</span>
+<span class="font-currency-md text-currency-md font-bold text-on-surface">22 Registros</span>
+<span class="font-caption text-caption text-on-surface-variant">12 en esta hoja</span>
+</div>
+<div class="flex flex-col col-span-2 bg-secondary/10 p-spacing-xs rounded">
+<span class="font-caption text-caption uppercase text-secondary font-bold">Monto Total Exigible en Papel</span>
+<div class="flex items-baseline justify-between">
+<span class="font-currency-lg text-currency-lg font-bold text-secondary">ARS $165.000,00</span>
+<span class="font-tabular-label text-caption text-secondary font-semibold">100% Cuotas Vencidas / Hoy</span>
+</div>
+</div>
+</div>
+<!-- Instructions for Field Agents (Manual Entry Protocol) -->
+<div class="w-full bg-surface-container rounded p-spacing-xs px-spacing-sm mb-spacing-sm flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-spacing-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">edit_note</span>
+<span class="font-caption text-caption font-semibold uppercase text-on-surface">Protocolo de Escritura:</span>
+<span class="font-caption text-caption">Completar monto exacto en pesos con bolígrafo azul o negro. Solicitar firma manuscrita al titular. Si no paga, ingresar código: <strong class="text-on-surface">[AU] Ausente, [CE] Cerrado, [NE] Negativa, [PR] Promesa</strong>.</span>
+</div>
+<span class="font-tabular-label text-caption text-on-surface font-bold">Hoja 1 de 2</span>
+</div>
+<!-- High-Density Manual Route Table -->
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-tabular-label text-caption uppercase">
+<th class="py-spacing-xs px-spacing-xs w-8 text-center font-bold">#</th>
+<th class="py-spacing-xs px-spacing-xs w-28">Operación</th>
+<th class="py-spacing-xs px-spacing-xs w-48">Cliente y DNI</th>
+<th class="py-spacing-xs px-spacing-xs">Domicilio &amp; Indicación de Acceso</th>
+<th class="py-spacing-xs px-spacing-xs w-24 text-right">Cuota</th>
+<th class="py-spacing-xs px-spacing-xs w-28 text-center">Estado / Mora</th>
+<th class="py-spacing-xs px-spacing-xs w-36 text-center bg-surface-container-high font-bold text-on-surface">Cobrado Físico ($)</th>
+<th class="py-spacing-xs px-spacing-xs w-28 text-center">Firma Cliente</th>
+<th class="py-spacing-xs px-spacing-xs w-24 text-center">Cód. Visita</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 font-body-sm text-body-sm">
+<!-- Item 01 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">01</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#CR-84920</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container text-on-surface-variant uppercase font-semibold">Efectivo</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Guillermo Herrera</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 28.491.203 • Cel: 385-4128912</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Centenario - Mitre 452</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Frente a Panadería El Sol. Reja blanca baja.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-on-surface">
+                  $5.500
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-secondary-container text-on-secondary-container font-tabular-label text-caption font-semibold">Al día (0d)</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 02 -->
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">02</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#PR-10294</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container-high text-on-surface-variant uppercase font-semibold">Smart TV 43"</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Marta Beatriz Suárez</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 17.839.401 • Fijo: 422-0199</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Centro - Pellegrini 128 - Dpto 2B</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Tocar timbre Suárez. Si no atiende, negocio de abajo.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-error">
+                  $14.000
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-error-container text-on-error-container font-tabular-label text-caption font-semibold">Mora 4d (Doble)</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 03 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">03</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#CR-85112</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container text-on-surface-variant uppercase font-semibold">Efectivo</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Roberto Carlos Luna</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 32.109.844 • Cel: 385-5012390</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Parque - Av. Roca Norte 845</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Taller mecánico 'El Amigo'. Portón negro abierto.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-on-surface">
+                  $7.500
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-secondary-container text-on-secondary-container font-tabular-label text-caption font-semibold">Al día (0d)</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 04 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">04</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#PR-09881</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container-high text-on-surface-variant uppercase font-semibold">Celular Moto G</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Sandra Noemí Coronel</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 35.849.190 • Cel: 385-6110294</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Centro - Salta 230 (Kiosco Sandra)</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Kiosco con rejas azules al lado de la farmacia.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-on-surface">
+                  $9.000
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-secondary-container text-on-secondary-container font-tabular-label text-caption font-semibold">Al día (0d)</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 05 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">05</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#CR-83904</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container text-on-surface-variant uppercase font-semibold">Efectivo</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Juan Ignacio Carrizo</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 24.182.771 • Fijo: 421-4433</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Congreso - Congreso 610</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Casa de dos pisos ladrillo visto. Cobrar antes de las 11h.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-on-surface">
+                  $12.500
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-secondary-container text-on-secondary-container font-tabular-label text-caption font-semibold">Al día (0d)</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 06 -->
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">06</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#CR-82103</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container text-on-surface-variant uppercase font-semibold">Efectivo</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Valeria Belén Mansilla</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 39.029.112 • Cel: 385-4882190</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Libertad - Independencia 1120</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Peluquería 'Valeria'. Portón de vidrio templado.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-error">
+                  $18.000
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-error-container text-on-error-container font-tabular-label text-caption font-semibold">Atraso 2d: Debe $18k</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 07 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">07</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#PR-11002</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container-high text-on-surface-variant uppercase font-semibold">Colchón 2 Pl.</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Héctor Daniel Gómez</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 21.092.348 • Cel: 385-4039128</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Cabildo - Juncal 322</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Al lado de verdulería. Perro en el patio, llamar por reja.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-on-surface">
+                  $11.000
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-secondary-container text-on-secondary-container font-tabular-label text-caption font-semibold">Al día (0d)</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 08 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">08</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#CR-85291</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container text-on-surface-variant uppercase font-semibold">Efectivo</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Mirta Elena Juárez</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 16.482.903 • Cel: 385-4991024</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Centro - 24 de Septiembre 78</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Galeria Central - Local 14 (Mercería).</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-on-surface">
+                  $6.000
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-secondary-container text-on-secondary-container font-tabular-label text-caption font-semibold">Al día (0d)</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 09 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">09</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#CR-84992</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container text-on-surface-variant uppercase font-semibold">Efectivo</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Oscar Alfredo Paz</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 29.501.992 • Cel: 385-5120349</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Belgrano - Balcarce 410</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Frente al club. Casa con toldo a rayas verdes.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-on-surface">
+                  $8.500
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-secondary-container text-on-secondary-container font-tabular-label text-caption font-semibold">Al día (0d)</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 10 -->
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">10</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#PR-11240</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container-high text-on-surface-variant uppercase font-semibold">Ventilador Pie</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Clara Inés Leguizamón</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 36.702.418 • Cel: 385-4819033</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Centro - Urquiza 98</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Edificio San Martín - Planta Baja C.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-error">
+                  $16.000
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-error-container text-on-error-container font-tabular-label text-caption font-semibold">Mora 3d: Debe $16k</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 11 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">11</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#CR-85310</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container text-on-surface-variant uppercase font-semibold">Efectivo</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Esteban Darío Peralta</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 31.849.201 • Cel: 385-4112849</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Centro - Av. Belgrano Sur 340</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Fotocopiadora 'Sigma'. Pasando calle Libertad.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-on-surface">
+                  $35.000
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-secondary-container text-on-secondary-container font-tabular-label text-caption font-semibold">Al día (0d)</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+<!-- Item 12 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-table-cell-py px-spacing-xs text-center font-tabular-label text-caption font-bold text-on-surface-variant bg-surface-container-low/50">12</td>
+<td class="py-table-cell-py px-spacing-xs">
+<span class="font-tabular-label text-caption font-bold text-on-surface block">#CR-84722</span>
+<span class="font-tabular-label text-[10px] px-spacing-2xs rounded bg-surface-container text-on-surface-variant uppercase font-semibold">Efectivo</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Romina Soledad Brandán</div>
+<div class="font-tabular-label text-caption text-on-surface-variant">DNI 34.298.712 • Cel: 385-5901123</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs">
+<div class="font-body-sm text-body-sm text-on-surface font-medium">B° Alberdi - Absalón Rojas 620</div>
+<div class="font-caption text-caption text-on-surface-variant italic leading-tight">Portón de chapa verde con número en blanco visible.</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-right font-currency-md text-currency-md font-bold text-on-surface">
+                  $22.000
+                </td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<span class="inline-flex items-center px-spacing-xs py-spacing-2xs rounded bg-secondary-container text-on-secondary-container font-tabular-label text-caption font-semibold">Al día (0d)</span>
+</td>
+<td class="py-table-cell-py px-spacing-xs bg-surface-container-lowest text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/40 flex items-center justify-start px-spacing-xs text-on-surface-variant">
+<span class="font-tabular-label text-caption text-outline">$</span>
+</div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30"></div>
+</td>
+<td class="py-table-cell-py px-spacing-xs text-center">
+<div class="h-9 w-full rounded bg-surface-container-low/30 flex items-center justify-center font-tabular-label text-caption text-outline">___</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- PAGE FOOTER SECTION: AUDIT, RECONCILIATION & SIGNATURES -->
+<footer class="w-full mt-spacing-lg pt-spacing-md flex flex-col gap-spacing-md">
+<!-- Physical Accounting Reconciliation Block -->
+<div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-spacing-md bg-surface-container-low p-spacing-md rounded-xl">
+<!-- Column 1: System Totals -->
+<div class="flex flex-col justify-between bg-surface-container-lowest p-spacing-sm rounded-lg shadow-sm">
+<div class="flex flex-col">
+<span class="font-tabular-label text-caption text-on-surface-variant uppercase font-bold">1. Total Exigible Impreso en Ruta</span>
+<div class="flex items-baseline gap-spacing-xs mt-spacing-2xs">
+<span class="font-currency-xl text-currency-xl text-on-surface font-bold">ARS $165.000,00</span>
+</div>
+</div>
+<div class="font-caption text-caption text-on-surface-variant pt-spacing-xs">
+              Suma fija de las 12 operaciones cargadas a este legajo.
+            </div>
+</div>
+<!-- Column 2: Manual Cash Count Inputs (Pen Fill Areas) -->
+<div class="flex flex-col justify-between bg-surface-container-lowest p-spacing-sm rounded-lg shadow-sm">
+<span class="font-tabular-label text-caption text-on-surface-variant uppercase font-bold">2. Total Físico Rendido en Efectivo</span>
+<div class="h-10 w-full rounded bg-surface-container-low/50 flex items-center justify-between px-spacing-sm text-on-surface-variant my-spacing-xs">
+<span class="font-currency-md text-currency-md font-bold text-on-surface">ARS $</span>
+<span class="font-tabular-label text-caption text-outline tracking-widest">[ Llenado Manual Birome ]</span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Conteo realizado frente al tesorero de turno.</span>
+</div>
+<!-- Column 3: Variance (Surplus / Deficit) -->
+<div class="flex flex-col justify-between bg-surface-container-lowest p-spacing-sm rounded-lg shadow-sm">
+<span class="font-tabular-label text-caption text-on-surface-variant uppercase font-bold">3. Diferencia de Rendición</span>
+<div class="h-10 w-full rounded bg-surface-container-low/50 flex items-center justify-between px-spacing-sm text-on-surface-variant my-spacing-xs">
+<span class="font-currency-md text-currency-md font-bold text-on-surface">Δ ($)</span>
+<div class="flex items-center gap-spacing-sm font-tabular-label text-caption">
+<span class="text-secondary font-bold">(+) Superávit</span>
+<span class="text-error font-bold">(-) Faltante</span>
+</div>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Tachar o justificar anomalías en observaciones.</span>
+</div>
+</div>
+<!-- Official Signatures Grid -->
+<div class="w-full grid grid-cols-1 md:grid-cols-3 gap-spacing-lg pt-spacing-sm">
+<!-- Signature 1 -->
+<div class="flex flex-col items-center bg-surface-container-low/40 p-spacing-md rounded-lg text-center">
+<div class="h-16 w-full flex items-end justify-center pb-spacing-xs">
+<span class="font-tabular-label text-caption text-outline italic">Espacio para rúbrica manuscrita</span>
+</div>
+<div class="w-4/5 h-[1.5px] bg-outline-variant mb-spacing-xs"></div>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Ariel González</span>
+<span class="font-tabular-label text-caption text-on-surface-variant">Cobrador Titular • ID #COB-04</span>
+</div>
+<!-- Signature 2 -->
+<div class="flex flex-col items-center bg-surface-container-low/40 p-spacing-md rounded-lg text-center">
+<div class="h-16 w-full flex items-end justify-center pb-spacing-xs">
+<span class="font-tabular-label text-caption text-outline italic">Espacio para sello y firma de control</span>
+</div>
+<div class="w-4/5 h-[1.5px] bg-outline-variant mb-spacing-xs"></div>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Walter R. / Tesorería</span>
+<span class="font-tabular-label text-caption text-on-surface-variant">Supervisor Responsable de Turno</span>
+</div>
+<!-- Signature 3: Vault Reception -->
+<div class="flex flex-col items-center bg-surface-container-low/40 p-spacing-md rounded-lg text-center">
+<div class="h-16 w-full flex flex-col items-center justify-center gap-spacing-2xs">
+<span class="font-tabular-label text-caption text-on-surface-variant uppercase font-bold">Hora Ingreso a Bóveda</span>
+<div class="font-currency-lg text-currency-lg font-bold text-on-surface">___ : ___ hs</div>
+</div>
+<div class="w-4/5 h-[1.5px] bg-outline-variant mb-spacing-xs"></div>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Recepción de Valores</span>
+<span class="font-tabular-label text-caption text-on-surface-variant">Mesa de Entrada Central SDE</span>
+</div>
+</div>
+<!-- Compliance Microcopy & Barcode Traceability Strip -->
+<div class="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-spacing-xs pt-spacing-xs text-on-surface-variant">
+<div class="flex items-center gap-spacing-xs">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
+<span class="font-caption text-caption">Documento interno de respaldo financiero según normativa de contingencia CREDIT-ON v4.2. Prohibida su adulteración.</span>
+</div>
+<div class="font-tabular-label text-caption tracking-widest uppercase font-mono">
+            *CTR-2025-0524-A12*
+          </div>
+</div>
+</footer>
+</article>
+</div>
+</div>
+<script>
+  (function initPrintSheet() {
+    const printBtn = document.getElementById('trigger-print-btn');
+    if (!printBtn) return;
+    
+    // Simple micro-interaction for date or collector filtering
+    const collectorSelect = document.getElementById('route-collector-select');
+    if (collectorSelect) {
+      collectorSelect.addEventListener('change', function(e) {
+        console.info('Cambiando ruta para impresión:', e.target.value);
+      });
+    }
+  })();
+</script></main></div></body></html>
