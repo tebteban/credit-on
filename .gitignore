@@ -5,3 +5,4 @@ dist/
 .env.local
 .env.*.local
 !.env.example
+stitch_credit_on_collection_management_system/

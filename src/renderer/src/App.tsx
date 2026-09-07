@@ -6,8 +6,9 @@ import { GestionStock } from './views/GestionStock';
 import { HojaDeRutaImprimible } from './views/HojaDeRutaImprimible';
 import { CobradorPWA } from '../../pwa/components/CobradorPWA';
 import { SupabaseSessionControl } from './components/SupabaseSessionControl';
+import { AdminAccessGate } from './components/AdminAccessGate';
 
-export const App: React.FC = () => {
+const Backoffice: React.FC = () => {
   const [vistaActual, setVistaActual] = useState<
     'cierre' | 'patrimonio' | 'alta' | 'stock' | 'hoja' | 'pwa'
   >('cierre');
@@ -262,3 +263,9 @@ export const App: React.FC = () => {
     </div>
   );
 };
+
+export const App: React.FC = () => (
+  <AdminAccessGate>
+    <Backoffice />
+  </AdminAccessGate>
+);

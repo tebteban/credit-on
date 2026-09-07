@@ -38,7 +38,7 @@ La aplicación ya usa Supabase para el alta de operaciones, los cierres de caja 
    ```
 
    El `id_cobrador` debe coincidir con `cobradores.id_cobrador`. Después de cambiar esos metadatos, el usuario debe cerrar sesión y volver a entrar para renovar su JWT.
-4. Reiniciá `npm run dev` o `npm run dev:web` e iniciá sesión desde el botón de la barra superior.
+4. Reiniciá `npm run dev` o `npm run dev:web` e iniciá sesión desde la pantalla de acceso administrativo.
 
 La ruta móvil descarga `vw_hoja_de_ruta` para el `VITE_COBRADOR_ID` configurado y guarda una copia en IndexedDB para trabajar sin señal. Si la conexión o la sesión no están disponibles, conserva la cola pendiente y no confirma falsamente los cobros.
 
