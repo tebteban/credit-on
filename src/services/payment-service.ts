@@ -392,16 +392,15 @@ export class PaymentCascadeService {
         const nuevoEstado = nuevoSaldo === 0 ? 'CANCELADO' : 'VIGENTE';
         const cuotasEq = parseFloat((dto.monto / (importeCuota || 1)).toFixed(2));
 
-        // 2. Insertar directamente en la tabla 'cobros'
+        // 2. Insertar directamente en la tabla 'cobros' (esquema canónico: fecha_hora, sin medio_pago)
         const { data: cobroInsert } = await this.supabaseClient
           .from('cobros')
           .insert({
             nro_op: dto.nro_op,
             id_cobrador: dto.id_cobrador,
             monto_cobrado: dto.monto,
-            fecha_cobro: dto.fecha_hora || new Date().toISOString(),
-            medio_pago: 'EFECTIVO',
-            cuotas_equivalentes: cuotasEq,
+            fecha_hora: dto.fecha_hora || new Date().toISOString(),
+            cuotas_equivalentes: Math.max(0.0001, cuotasEq),
             coordenadas_gps: dto.coordenadas_gps || null,
             observacion: dto.observacion || null,
             idempotency_key: idempotencyKey,
@@ -420,26 +419,41 @@ export class PaymentCascadeService {
             .eq('nro_op', dto.nro_op);
         }
 
-        // 4. Actualizar cuota más antigua pendiente si existe
+        // 4. Actualizar cuotas pendientes en cascada
         try {
           const { data: cuotasPend } = await this.supabaseClient
             .from('cuotas')
-            .select('id_cuota, monto_esperado, monto_pagado')
+            .select('id_cuota, numero_cuota, monto_esperado, monto_pagado, estado')
             .eq('nro_op', dto.nro_op)
             .in('estado', ['PENDIENTE', 'PARCIAL'])
-            .order('numero_cuota', { ascending: true })
-            .limit(1);
+            .order('numero_cuota', { ascending: true });
 
           if (cuotasPend && cuotasPend.length > 0) {
-            const c = cuotasPend[0];
-            await this.supabaseClient
-              .from('cuotas')
-              .update({
-                estado: 'PAGADA',
-                monto_pagado: c.monto_esperado,
-                fecha_pago_efectivo: (dto.fecha_hora || new Date().toISOString()).split('T')[0],
-              })
-              .eq('id_cuota', c.id_cuota);
+            let remanente = dto.monto;
+            for (const c of cuotasPend) {
+              if (remanente <= 0) break;
+              const faltante = Number(c.monto_esperado) - Number(c.monto_pagado || 0);
+              if (remanente >= faltante) {
+                await this.supabaseClient
+                  .from('cuotas')
+                  .update({
+                    estado: 'PAGADA',
+                    monto_pagado: c.monto_esperado,
+                    fecha_pago_efectivo: (dto.fecha_hora || new Date().toISOString()).split('T')[0],
+                  })
+                  .eq('id_cuota', c.id_cuota);
+                remanente -= faltante;
+              } else {
+                await this.supabaseClient
+                  .from('cuotas')
+                  .update({
+                    estado: 'PARCIAL',
+                    monto_pagado: Number(c.monto_pagado || 0) + remanente,
+                  })
+                  .eq('id_cuota', c.id_cuota);
+                remanente = 0;
+              }
+            }
           }
         } catch {}
 
@@ -520,8 +534,8 @@ export class PaymentCascadeService {
       const { error } = await this.supabaseClient.from('cobros').insert({
         nro_op: dto.nro_op,
         id_cobrador: dto.id_cobrador,
-        monto_cobrado: 0.0001, // Marcador simbólico auditado
-        cuotas_equivalentes: 0.0001,
+        monto_cobrado: 0,
+        cuotas_equivalentes: 0,
         motivo_no_pago: dto.motivo,
         observacion: dto.observacion || `Visita sin pago: ${dto.motivo}`,
         coordenadas_gps: dto.coordenadas_gps || null,

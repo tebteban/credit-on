@@ -113,15 +113,48 @@ export const DashboardPatrimonio: React.FC<DashboardPatrimonioProps> = ({ onNavi
   // Sincronización secundaria con Supabase si está disponible
   useEffect(() => {
     if (!supabase) return;
+    let channel: any = null;
+
     const fetchSupabase = async () => {
       try {
         const { data: cobrs } = await supabase.from('cobradores').select('*').eq('activo', true);
         if (cobrs && cobrs.length > 0) {
           setCobradoresRaw((prev) => (prev.length === 0 ? cobrs : prev));
         }
-      } catch {}
+
+        // Consultar cobros recientes en Supabase para reflejar cobranzas móviles en calle
+        const { data: dbCobros } = await supabase
+          .from('cobros')
+          .select('id_cobro, nro_op, id_cobrador, fecha_hora, monto_cobrado, cuotas_equivalentes, cobradores(nombre)')
+          .order('fecha_hora', { ascending: false })
+          .limit(100);
+
+        if (dbCobros && dbCobros.length > 0) {
+          setCobrosRaw((prev) => {
+            const mapa = new Set(prev.map((p) => p.id_cobro));
+            const nuevos = dbCobros.filter((dc) => !mapa.has(dc.id_cobro));
+            return [...nuevos, ...prev];
+          });
+        }
+      } catch (err) {
+        console.warn('[DashboardPatrimonio] Error consultando Supabase:', err);
+      }
     };
+
     fetchSupabase();
+
+    channel = supabase
+      .channel('dashboard-cobros-live')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'cobros' }, () => {
+        fetchSupabase();
+      })
+      .subscribe();
+
+    return () => {
+      if (channel && supabase) {
+        supabase.removeChannel(channel);
+      }
+    };
   }, []);
 
   // =========================================================================

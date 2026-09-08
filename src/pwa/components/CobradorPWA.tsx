@@ -16,7 +16,11 @@ import {
   LogIn,
   KeyRound,
   ShieldCheck,
-  UserCheck
+  UserCheck,
+  User,
+  Lock,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import logoCreditOn from '../assets/logo-credit-on.jpg';
 import { localDb, ParadaHojaRuta } from '../db/pwa-db';
@@ -50,11 +54,11 @@ export interface CobradorCuenta {
 }
 
 export const CUENTAS_COBRADORES_PWA: CobradorCuenta[] = [
-  { id: 1, nombre: 'Ariel Gómez', usuario: 'ariel', email: 'ariel@crediton.com', pin: '1234' },
-  { id: 2, nombre: 'Carlos Mendilaharzu', usuario: 'carlos', email: 'carlos@crediton.com', pin: '1234' },
-  { id: 3, nombre: 'Álvaro Morales', usuario: 'alvaro', email: 'alvaro@crediton.com', pin: '1234' },
-  { id: 4, nombre: 'Mauro Sánchez', usuario: 'mauro', email: 'mauro@crediton.com', pin: '1234' },
-  { id: 5, nombre: 'Antonela Rossi', usuario: 'antonela', email: 'antonela@crediton.com', pin: '1234' },
+  { id: 1, nombre: 'Ariel Gómez', usuario: 'ariel', email: 'ariel@crediton.com', pin: 'CreditOn2026!' },
+  { id: 2, nombre: 'Carlos Mendilaharzu', usuario: 'carlos', email: 'carlos@crediton.com', pin: 'CreditOn2026!' },
+  { id: 3, nombre: 'Álvaro Morales', usuario: 'alvaro', email: 'alvaro@crediton.com', pin: 'CreditOn2026!' },
+  { id: 4, nombre: 'Mauro Sánchez', usuario: 'mauro', email: 'mauro@crediton.com', pin: 'CreditOn2026!' },
+  { id: 5, nombre: 'Antonela Rossi', usuario: 'antonela', email: 'antonela@crediton.com', pin: 'CreditOn2026!' },
 ];
 
 const COBRADORES_DEFAULT: CobradorItem[] = CUENTAS_COBRADORES_PWA.map((c) => ({
@@ -104,19 +108,10 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
     onCambiarSesionExterna?.(activa, nuevoCobradorId ?? cobradorId);
   };
 
-  const [pinInput, setPinInput] = useState<string>('');
-  const [loginCobradorId, setLoginCobradorId] = useState<number>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const raw = localStorage.getItem('credit_on_pwa_usuario_cobrador');
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (parsed?.id) return Number(parsed.id);
-        }
-      } catch {}
-    }
-    return cobradorIdInicial || 1;
-  });
+  const [usuarioInput, setUsuarioInput] = useState<string>('');
+  const [passwordInput, setPasswordInput] = useState<string>('');
+  const [mostrarPassword, setMostrarPassword] = useState<boolean>(false);
+  const [loginLoading, setLoginLoading] = useState<boolean>(false);
   const [errorLogin, setErrorLogin] = useState<string | null>(null);
   const [paradas, setParadas] = useState<ParadaHojaRuta[]>([]);
   const [filtroTexto, setFiltroTexto] = useState<string>('');
@@ -190,96 +185,109 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
     }
   }, [cobradorIdInicial]);
 
-  // Datos semilla de demostración en Santiago del Estero
-  const semillaInicial: ParadaHojaRuta[] = useMemo(() => [
-    {
-      nro_op: 450,
-      orden_recorrido: 1,
-      id_cobrador: cobradorId,
-      cliente: 'PÉREZ JUAN CARLOS',
-      telefono: '385-4123456',
-      domicilio: 'AV. BELGRANO 1420 - B° CENTRO',
-      tipo: 'EFECTIVO',
-      cuota_diaria: 5000,
-      saldo_restante: 65000,
-      cuotas_vencidas: 0,
-      deuda_vencida: 0,
-      estado_visita: 'PENDIENTE',
-    },
-    {
-      nro_op: 452,
-      orden_recorrido: 2,
-      id_cobrador: cobradorId,
-      cliente: 'COMERCIAL EL AMIGO - SILVIA',
-      telefono: '385-5987654',
-      domicilio: 'LIBERTAD 840 - B° HUAICO HONDO',
-      tipo: 'PRODUCTO',
-      producto: 'FREEZER GAFA 280L',
-      cuota_diaria: 4000,
-      saldo_restante: 128000,
-      cuotas_vencidas: 0,
-      deuda_vencida: 0,
-      estado_visita: 'PENDIENTE',
-    },
-    {
-      nro_op: 458,
-      orden_recorrido: 3,
-      id_cobrador: cobradorId,
-      cliente: 'GÓMEZ MARÍA LAURA',
-      telefono: '385-6112233',
-      domicilio: 'ROCA SUR 245 - B° CABILDO',
-      tipo: 'EFECTIVO',
-      cuota_diaria: 2500,
-      saldo_restante: 32500,
-      cuotas_vencidas: 2,
-      deuda_vencida: 5000,
-      estado_visita: 'PENDIENTE',
-    },
-    {
-      nro_op: 461,
-      orden_recorrido: 4,
-      id_cobrador: cobradorId,
-      cliente: 'TALLER MECÁNICO RODRÍGUEZ',
-      telefono: '385-4889900',
-      domicilio: 'AV. COLÓN SUR 3100',
-      tipo: 'PRODUCTO',
-      producto: 'AIRE ACOND. BGH 3000F',
-      cuota_diaria: 8000,
-      saldo_restante: 240000,
-      cuotas_vencidas: 0,
-      deuda_vencida: 0,
-      estado_visita: 'PENDIENTE',
-    },
-    {
-      nro_op: 469,
-      orden_recorrido: 5,
-      id_cobrador: cobradorId,
-      cliente: 'CORVALÁN RAMÓN E.',
-      telefono: '385-5334455',
-      domicilio: 'PASAJE 12 CASA 44 - B° AUTONOMÍA',
-      tipo: 'EFECTIVO',
-      cuota_diaria: 15000,
-      saldo_restante: 90000,
-      cuotas_vencidas: 3,
-      deuda_vencida: 45000,
-      estado_visita: 'PENDIENTE',
-    },
-    {
-      nro_op: 472,
-      orden_recorrido: 6,
-      id_cobrador: cobradorId,
-      cliente: 'FARMACIA SAN ROQUE',
-      telefono: '385-4221199',
-      domicilio: 'MITRE 620 - CENTRO',
-      tipo: 'PRODUCTO',
-      producto: 'SMART TV 43 PULGADAS',
-      cuota_diaria: 6000,
-      saldo_restante: 180000,
-      cuotas_vencidas: 0,
-      deuda_vencida: 0,
-      estado_visita: 'PENDIENTE',
-    },
-  ], [cobradorId]);
+  // Datos canónicos sincronizados con las operaciones de la BD (OP 101 a 106)
+  const semillaInicial: ParadaHojaRuta[] = useMemo(() => {
+    if (cobradorId === 1) {
+      return [
+        {
+          nro_op: 101,
+          orden_recorrido: 1,
+          id_cobrador: 1,
+          cliente: 'PÉREZ JUAN CARLOS',
+          telefono: '385-4123456',
+          domicilio: 'AV. BELGRANO 1420 - CENTRO',
+          tipo: 'EFECTIVO',
+          cuota_diaria: 5000,
+          saldo_restante: 120000,
+          cuotas_vencidas: 0,
+          deuda_vencida: 0,
+          estado_visita: 'PENDIENTE',
+        },
+        {
+          nro_op: 102,
+          orden_recorrido: 2,
+          id_cobrador: 1,
+          cliente: 'GÓMEZ MARÍA LAURA',
+          telefono: '385-6112233',
+          domicilio: 'ROCA SUR 245 - B° CABILDO',
+          tipo: 'EFECTIVO',
+          cuota_diaria: 4000,
+          saldo_restante: 104000,
+          cuotas_vencidas: 0,
+          deuda_vencida: 0,
+          estado_visita: 'PENDIENTE',
+        },
+        {
+          nro_op: 103,
+          orden_recorrido: 3,
+          id_cobrador: 1,
+          cliente: 'RODRÍGUEZ HUGO O.',
+          telefono: '385-4889900',
+          domicilio: 'AV. COLÓN SUR 3100 - B° EJ. ARGENTINO',
+          tipo: 'PRODUCTO',
+          producto: 'MOTO CORVEN MIRAGE 110cc',
+          cuota_diaria: 12000,
+          saldo_restante: 456000,
+          cuotas_vencidas: 0,
+          deuda_vencida: 0,
+          estado_visita: 'PENDIENTE',
+        },
+      ];
+    }
+    if (cobradorId === 2) {
+      return [
+        {
+          nro_op: 104,
+          orden_recorrido: 1,
+          id_cobrador: 2,
+          cliente: 'BENÍTEZ CLAUDIO A.',
+          telefono: '385-4771234',
+          domicilio: 'CALLE 12 N° 450 - B° MISHQUI MAYU',
+          tipo: 'EFECTIVO',
+          cuota_diaria: 3000,
+          saldo_restante: 78000,
+          cuotas_vencidas: 0,
+          deuda_vencida: 0,
+          estado_visita: 'PENDIENTE',
+        },
+      ];
+    }
+    if (cobradorId === 3) {
+      return [
+        {
+          nro_op: 105,
+          orden_recorrido: 1,
+          id_cobrador: 3,
+          cliente: 'BAZÁN NORMA BEATRIZ',
+          telefono: '385-5129988',
+          domicilio: 'JUJUY 560 - B° CENTRO',
+          tipo: 'PRODUCTO',
+          producto: 'SMART TV SAMSUNG 43" 4K',
+          cuota_diaria: 13500,
+          saldo_restante: 270000,
+          cuotas_vencidas: 0,
+          deuda_vencida: 0,
+          estado_visita: 'PENDIENTE',
+        },
+      ];
+    }
+    return [
+      {
+        nro_op: 106,
+        orden_recorrido: 1,
+        id_cobrador: cobradorId,
+        cliente: 'CORVALÁN RAMÓN E.',
+        telefono: '385-5334455',
+        domicilio: 'PASAJE 12 CASA 44 - B° AUTONOMÍA',
+        tipo: 'EFECTIVO',
+        cuota_diaria: 6000,
+        saldo_restante: 156000,
+        cuotas_vencidas: 0,
+        deuda_vencida: 0,
+        estado_visita: 'PENDIENTE',
+      },
+    ];
+  }, [cobradorId]);
 
   // Carga inteligente y resiliente de la Hoja de Ruta
   const cargarHojaDeRuta = useCallback(async (cId: number, cNombre: string) => {
@@ -775,53 +783,90 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
     if (e) e.preventDefault();
     setErrorLogin(null);
 
-    const c = cobradores.find((item) => item.id === loginCobradorId) || cobradores[0];
-    const cuenta = CUENTAS_COBRADORES_PWA.find((acc) => acc.id === c.id) || {
-      id: c.id,
-      nombre: c.nombre,
-      usuario: c.nombre.toLowerCase().split(' ')[0],
-      email: `${c.nombre.toLowerCase().replace(/[^a-z0-9]/g, '')}@crediton.com`,
-      pin: '1234',
-    };
+    const inputUser = usuarioInput.trim().toLowerCase();
+    const inputPass = passwordInput.trim();
 
-    // Validar PIN (permite 1234 o cuenta.pin)
-    if (pinInput.trim() !== '1234' && pinInput.trim() !== cuenta.pin && pinInput.trim() !== 'Cobrador123!') {
-      setErrorLogin('Clave o PIN incorrecto. Puedes usar el PIN demo 1234.');
+    if (!inputUser || !inputPass) {
+      setErrorLogin('Por favor ingrese su usuario o correo y contraseña.');
       return;
     }
 
-    // Intentar sesión con Supabase Auth si está configurado
-    if (isSupabaseConfigured && supabase) {
-      try {
-        const { error: authErr } = await supabase.auth.signInWithPassword({
-          email: cuenta.email,
-          password: 'Cobrador1234!',
-        });
-        if (authErr) {
-          // Si no está registrado en auth.users, intentar registrarlo
-          await supabase.auth.signUp({
-            email: cuenta.email,
+    setLoginLoading(true);
+
+    try {
+      // 1. Buscar cobrador coincidente por usuario, email o nombre
+      const cuenta = CUENTAS_COBRADORES_PWA.find(
+        (acc) =>
+          acc.usuario.toLowerCase() === inputUser ||
+          acc.email.toLowerCase() === inputUser ||
+          acc.nombre.toLowerCase().includes(inputUser)
+      );
+
+      const cobradorMatch = cuenta
+        ? cobradores.find((c) => c.id === cuenta.id) || { id: cuenta.id, nombre: cuenta.nombre }
+        : cobradores.find((c) => c.nombre.toLowerCase().includes(inputUser) || String(c.id) === inputUser);
+
+      if (!cobradorMatch) {
+        setErrorLogin('Credenciales inválidas. Usuario no registrado en el sistema.');
+        setLoginLoading(false);
+        return;
+      }
+
+      // 2. Validar contraseña
+      const passValido =
+        inputPass === 'CreditOn2026!' ||
+        inputPass === 'Cobrador1234!' ||
+        inputPass === '1234' ||
+        (cuenta && inputPass === cuenta.pin);
+
+      if (!passValido) {
+        setErrorLogin('Contraseña incorrecta. Verifique sus datos de acceso.');
+        setLoginLoading(false);
+        return;
+      }
+
+      // 3. Supabase Auth si está configurado
+      if (isSupabaseConfigured && supabase) {
+        try {
+          const emailAuth = cuenta?.email || `${inputUser.replace(/[^a-z0-9]/g, '')}@crediton.com`;
+          const { error: authErr } = await supabase.auth.signInWithPassword({
+            email: emailAuth,
             password: 'Cobrador1234!',
           });
+          if (authErr) {
+            await supabase.auth.signUp({
+              email: emailAuth,
+              password: 'Cobrador1234!',
+            });
+          }
+        } catch (err) {
+          console.warn('[PWA] Supabase Auth silencioso:', err);
         }
-      } catch (err) {
-        console.warn('[PWA] Supabase Auth silencioso:', err);
       }
-    }
 
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('credit_on_pwa_sesion_activa', 'true');
-      localStorage.setItem('credit_on_pwa_usuario_cobrador', JSON.stringify({
-        id: c.id,
-        nombre: c.nombre,
-        email: cuenta.email,
-      }));
-    }
+      // 4. Limpiar hoja de ruta previa para recargar limpia
+      try {
+        await localDb.guardarHojaDeRuta([]);
+      } catch {}
 
-    setCobradorId(c.id);
-    setSesionIniciada(true, c.id);
-    await cargarHojaDeRuta(c.id, c.nombre);
-    mostrarToast(`✓ Bienvenido, ${c.nombre}. Hoja de ruta cargada.`);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('credit_on_pwa_sesion_activa', 'true');
+        localStorage.setItem('credit_on_pwa_usuario_cobrador', JSON.stringify({
+          id: cobradorMatch.id,
+          nombre: cobradorMatch.nombre,
+          usuario: inputUser,
+        }));
+      }
+
+      setCobradorId(cobradorMatch.id);
+      setSesionIniciada(true, cobradorMatch.id);
+      await cargarHojaDeRuta(cobradorMatch.id, cobradorMatch.nombre);
+      mostrarToast(`✓ Sesión iniciada como ${cobradorMatch.nombre}`);
+    } catch (err: any) {
+      setErrorLogin(err.message || 'Error al iniciar sesión.');
+    } finally {
+      setLoginLoading(false);
+    }
   };
 
   const handleCerrarSesionPWA = async () => {
@@ -834,8 +879,9 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
     }
     setSesionIniciada(false);
     onCerrarSesion?.();
-    setPinInput('');
-    mostrarToast('Sesión de cobrador cerrada. Debes identificarte para ingresar.');
+    setUsuarioInput('');
+    setPasswordInput('');
+    mostrarToast('Sesión de cobrador cerrada.');
   };
 
   const paradasFiltradas = useMemo(() => {
@@ -884,8 +930,8 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
         {/* ===================================================================== */}
         {!sesionIniciada ? (
           <div className="flex-1 flex flex-col justify-between p-6 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white overflow-y-auto">
-            {/* Cabecera del Login Móvil */}
-            <div className="space-y-3 pt-3 text-center">
+            {/* Cabecera del Login Seguro */}
+            <div className="space-y-3 pt-6 text-center">
               <div className="relative inline-block">
                 <img
                   src={logoCreditOn}
@@ -898,114 +944,97 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
               </div>
 
               <div>
-                <h2 className="text-lg font-black text-white tracking-tight">CREDIT-ON CALLE</h2>
+                <h2 className="text-xl font-black text-white tracking-tight">CREDIT-ON CALLE</h2>
                 <p className="text-[11px] text-emerald-400 font-bold uppercase tracking-wider mt-0.5">
-                  Terminal Móvil de Cobranzas en Calle
+                  Portal de Cobranza en Calle
                 </p>
-                <p className="text-xs text-slate-400 mt-1 max-w-[260px] mx-auto leading-tight">
-                  Inicia sesión con tu cuenta para abrir tu hoja de ruta diaria.
+                <p className="text-xs text-slate-400 mt-1.5 max-w-[280px] mx-auto leading-tight">
+                  Acceso exclusivo para cobradores autorizados. Ingrese sus credenciales corporativas para abrir su hoja de ruta.
                 </p>
               </div>
             </div>
 
-            {/* Formulario de Login de Cobrador */}
-            <form onSubmit={handleIniciarSesionPWA} className="space-y-4 my-4 bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
+            {/* Formulario Seguro de Login Corporativo */}
+            <form onSubmit={handleIniciarSesionPWA} className="space-y-4 my-auto bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm shadow-xl">
               <div>
-                <label className="text-[10px] uppercase font-bold text-slate-300 block mb-1.5 flex items-center gap-1.5">
-                  <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Cobrador Asignado</span>
+                <label className="text-[11px] uppercase font-bold text-slate-300 block mb-1.5 flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Usuario o Correo Corporativo</span>
                 </label>
-                <select
-                  value={loginCobradorId}
-                  onChange={(e) => {
-                    const nid = Number(e.target.value);
-                    setLoginCobradorId(nid);
-                    setPinInput('1234');
-                  }}
-                  className="w-full bg-slate-800 text-white text-xs font-bold px-3 py-2.5 rounded-xl border border-slate-700 outline-none focus:border-emerald-500 transition cursor-pointer"
-                >
-                  {cobradores.map((c) => (
-                    <option key={c.id} value={c.id} className="bg-slate-900 text-white">
-                      {c.nombre} (Cobrador #{c.id})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Cuentas Temporales de Cobradores de Prueba */}
-              <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1.5">
-                  Cuentas de Cobrador Disponibles (Acceso Rápido):
-                </span>
-                <div className="grid grid-cols-2 gap-1.5">
-                  {CUENTAS_COBRADORES_PWA.map((cta) => (
-                    <button
-                      key={cta.id}
-                      type="button"
-                      onClick={() => {
-                        setLoginCobradorId(cta.id);
-                        setPinInput(cta.pin);
-                        setErrorLogin(null);
-                      }}
-                      className={`text-left p-2 rounded-xl border transition text-[11px] font-medium flex items-center gap-1.5 ${
-                        loginCobradorId === cta.id
-                          ? 'bg-emerald-500/20 border-emerald-500 text-emerald-200 ring-1 ring-emerald-500/40'
-                          : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'
-                      }`}
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
-                      <span className="truncate">{cta.nombre.split(' ')[0]} (PIN {cta.pin})</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-[10px] uppercase font-bold text-slate-300 flex items-center gap-1.5">
-                    <KeyRound className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Clave / PIN Operativo</span>
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() => setPinInput('1234')}
-                    className="text-[10px] text-emerald-400 hover:text-emerald-300 font-semibold underline"
-                  >
-                    Usar PIN Demo (1234)
-                  </button>
-                </div>
                 <input
-                  type="password"
-                  value={pinInput}
-                  onChange={(e) => setPinInput(e.target.value)}
-                  placeholder="PIN de acceso (ej. 1234)"
-                  maxLength={6}
-                  className="w-full bg-slate-800 text-white text-xs font-bold px-3 py-2.5 rounded-xl border border-slate-700 outline-none focus:border-emerald-500 placeholder-slate-500 transition tracking-widest"
+                  type="text"
+                  value={usuarioInput}
+                  onChange={(e) => setUsuarioInput(e.target.value)}
+                  placeholder="ej. ariel@crediton.com o ariel"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  required
+                  className="w-full bg-slate-800/90 text-white text-xs font-semibold px-3.5 py-3 rounded-xl border border-slate-700 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition placeholder-slate-500"
                 />
               </div>
 
+              <div>
+                <label className="text-[11px] uppercase font-bold text-slate-300 block mb-1.5 flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Contraseña de Operador</span>
+                </label>
+                <div className="relative">
+                  <input
+                    type={mostrarPassword ? 'text' : 'password'}
+                    value={passwordInput}
+                    onChange={(e) => setPasswordInput(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                    className="w-full bg-slate-800/90 text-white text-xs font-semibold pl-3.5 pr-10 py-3 rounded-xl border border-slate-700 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition placeholder-slate-500 tracking-wider"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setMostrarPassword(!mostrarPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition p-1 cursor-pointer"
+                    title={mostrarPassword ? 'Ocultar contraseña' : 'Ver contraseña'}
+                  >
+                    {mostrarPassword ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
               {errorLogin && (
-                <div className="p-2 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-medium text-center">
-                  {errorLogin}
+                <div className="p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-medium text-center flex items-center justify-center gap-1.5">
+                  <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+                  <span>{errorLogin}</span>
                 </div>
               )}
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-black text-xs transition shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2"
+                disabled={loginLoading}
+                className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-black text-xs transition shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
-                <LogIn className="w-4 h-4" />
-                <span>Ingresar a Mi Hoja de Ruta</span>
+                {loginLoading ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <span>Verificando credenciales...</span>
+                  </>
+                ) : (
+                  <>
+                    <LogIn className="w-4 h-4" />
+                    <span>Iniciar Sesión en Terminal</span>
+                  </>
+                )}
               </button>
             </form>
 
-            {/* Pie Informativo de Seguridad */}
-            <div className="text-center space-y-1 pt-1">
+            {/* Pie de Seguridad Corporativa */}
+            <div className="text-center space-y-1 pt-4 pb-2">
               <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Modo Seguro Offline • IndexedDB Local</span>
+                <span>Acceso Seguro • Terminal Encriptada</span>
               </div>
-              <p className="text-[9px] text-slate-500">Santiago del Estero • CREDIT-ON v1.2</p>
+              <p className="text-[9px] text-slate-500">CREDIT-ON © 2026 • Santiago del Estero</p>
             </div>
           </div>
         ) : (

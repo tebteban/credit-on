@@ -91,25 +91,59 @@ export const CierreCajaArqueo: React.FC = () => {
 
   // Cargar cobradores y cobros dinámicos desde localStorage / Supabase
   useEffect(() => {
-    const sincronizarDatos = () => {
+    let cancelado = false;
+
+    const sincronizarDatos = async () => {
       try {
         const cobradoresRaw = localStorage.getItem('credit_on_cobradores');
         const historialRaw = localStorage.getItem('credit_on_historial_cobros');
 
         let lista: any[] = [];
         if (cobradoresRaw) {
-          lista = JSON.parse(cobradoresRaw);
+          try {
+            lista = JSON.parse(cobradoresRaw);
+          } catch {}
+        }
+        if (!Array.isArray(lista) || lista.length === 0) {
+          lista = COBRADORES_CANONICOS;
         }
 
         let cobrosHistorial: any[] = [];
         if (historialRaw) {
-          cobrosHistorial = JSON.parse(historialRaw);
+          try {
+            cobrosHistorial = JSON.parse(historialRaw);
+          } catch {}
         }
+
+        // Consultar cobros directamente desde Supabase Cloud para reflejar pagos de la PWA móvil
+        if (supabase) {
+          try {
+            const { data: dbCobros } = await supabase
+              .from('cobros')
+              .select('id_cobro, nro_op, id_cobrador, fecha_hora, monto_cobrado, cuotas_equivalentes, cobradores(nombre)')
+              .gte('fecha_hora', `${fechaSeleccionada}T00:00:00`)
+              .lte('fecha_hora', `${fechaSeleccionada}T23:59:59.999Z`);
+
+            if (dbCobros && dbCobros.length > 0) {
+              const mapaIds = new Set(cobrosHistorial.map((h: any) => h.id_cobro));
+              dbCobros.forEach((dc: any) => {
+                if (!mapaIds.has(dc.id_cobro)) {
+                  cobrosHistorial.push(dc);
+                }
+              });
+            }
+          } catch (err) {
+            console.warn('[CierreCajaArqueo] Error al consultar cobros en Supabase:', err);
+          }
+        }
+
+        if (cancelado) return;
 
         if (Array.isArray(lista) && lista.length > 0) {
           const actualizados: CobradorItem[] = lista.map((c: any, idx: number) => {
             const cid = Number(c.id || c.id_cobrador || idx + 1);
             const cNombre = (c.nombre || '').toLowerCase().trim();
+            const cobradorBase = COBRADORES_CANONICOS.find((cb) => cb.id_cobrador === cid);
 
             // Sumar cobros realizados para la fecha seleccionada
             const cobrosCobrador = cobrosHistorial.filter((h: any) => {
@@ -178,11 +212,29 @@ export const CierreCajaArqueo: React.FC = () => {
     };
 
     sincronizarDatos();
+
     window.addEventListener('credit_on_storage_update', sincronizarDatos);
     window.addEventListener('storage', sincronizarDatos);
+    window.addEventListener('focus', sincronizarDatos);
+
+    let channel: any = null;
+    if (supabase) {
+      channel = supabase
+        .channel('cierre-caja-live')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'cobros' }, () => {
+          sincronizarDatos();
+        })
+        .subscribe();
+    }
+
     return () => {
+      cancelado = true;
       window.removeEventListener('credit_on_storage_update', sincronizarDatos);
       window.removeEventListener('storage', sincronizarDatos);
+      window.removeEventListener('focus', sincronizarDatos);
+      if (channel && supabase) {
+        supabase.removeChannel(channel);
+      }
     };
   }, [fechaSeleccionada]);
 

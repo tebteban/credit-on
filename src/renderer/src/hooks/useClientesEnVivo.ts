@@ -405,10 +405,10 @@ export function useClientesEnVivo() {
           };
         });
 
-        // Combinar con operaciones locales no presentes en DB para que NUNCA desaparezcan
+        // Combinar con operaciones locales nuevas creadas offline no presentes en DB
         let combinadas = [...resultado];
         const mapaNroOps = new Set(resultado.map((r) => r.nro_op));
-        const localesNoEnDB = opsLocales.filter((local) => !mapaNroOps.has(local.nro_op));
+        const localesNoEnDB = opsLocales.filter((local) => !mapaNroOps.has(local.nro_op) && local.nro_op > 106);
         if (localesNoEnDB.length > 0) {
           combinadas = [...localesNoEnDB, ...resultado];
         }
