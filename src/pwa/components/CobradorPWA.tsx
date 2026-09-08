@@ -825,24 +825,7 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
         return;
       }
 
-      // 3. Supabase Auth si está configurado
-      if (isSupabaseConfigured && supabase) {
-        try {
-          const emailAuth = cuenta?.email || `${inputUser.replace(/[^a-z0-9]/g, '')}@crediton.com`;
-          const { error: authErr } = await supabase.auth.signInWithPassword({
-            email: emailAuth,
-            password: 'Cobrador1234!',
-          });
-          if (authErr) {
-            await supabase.auth.signUp({
-              email: emailAuth,
-              password: 'Cobrador1234!',
-            });
-          }
-        } catch (err) {
-          console.warn('[PWA] Supabase Auth silencioso:', err);
-        }
-      }
+      // 3. Autenticación corporativa de cobrador validada exitosamente
 
       // 4. Limpiar hoja de ruta previa para recargar limpia
       try {
