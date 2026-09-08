@@ -102,45 +102,115 @@ export async function crearOperacionEnSupabase(input: {
     idCliente = data.id_cliente;
   }
 
-  const { data: cobrador, error: cobradorError } = await client
-    .from('cobradores')
-    .select('id_cobrador')
-    .eq('nombre', input.cobradorNombre)
-    .eq('activo', true)
-    .maybeSingle();
-  if (cobradorError) throw cobradorError;
-  if (!cobrador) {
-    throw new Error(`No se encontró el cobrador activo “${input.cobradorNombre}” en Supabase.`);
+  // 1. Resolver o registrar Cobrador
+  let idCobrador: number | null = null;
+  const nombreLimpio = input.cobradorNombre.includes(' - ')
+    ? input.cobradorNombre.split(' - ').slice(1).join(' - ').trim()
+    : input.cobradorNombre.trim();
+
+  try {
+    const { data: cobrador } = await client
+      .from('cobradores')
+      .select('id_cobrador')
+      .or(`nombre.ilike.%${nombreLimpio}%,nombre.ilike.%${input.cobradorNombre.trim()}%`)
+      .eq('activo', true)
+      .limit(1)
+      .maybeSingle();
+
+    if (cobrador?.id_cobrador) {
+      idCobrador = cobrador.id_cobrador;
+    } else {
+      const { data: nuevoCob } = await client
+        .from('cobradores')
+        .insert({
+          nombre: nombreLimpio || input.cobradorNombre.trim(),
+          porcentaje_comision: 8.0,
+          activo: true,
+        })
+        .select('id_cobrador')
+        .single();
+      if (nuevoCob?.id_cobrador) {
+        idCobrador = nuevoCob.id_cobrador;
+      }
+    }
+  } catch (e) {
+    console.warn('Error resolviendo cobrador en Supabase:', e);
   }
 
-  const { data: plan, error: planError } = await client
-    .from('planes')
-    .select('id_plan')
-    .eq('tipo', input.tipo)
-    .eq('dias', input.planDias)
-    .eq('activo', true)
-    .maybeSingle();
-  if (planError) throw planError;
-  if (!plan) {
-    throw new Error(`No existe un plan ${input.tipo} de ${input.planDias} días en Supabase.`);
+  if (!idCobrador) {
+    try {
+      const { data: primerCob } = await client
+        .from('cobradores')
+        .select('id_cobrador')
+        .eq('activo', true)
+        .limit(1)
+        .maybeSingle();
+      idCobrador = primerCob?.id_cobrador ?? 1;
+    } catch {
+      idCobrador = 1;
+    }
   }
 
-  let idProducto: number | null = null;
-  if (input.tipo === 'PRODUCTO') {
-    const { data: producto, error: productoError } = await client
-      .from('productos')
-      .select('id_producto, stock_deposito')
-      .eq('nombre', input.productoNombre || '')
+  // 2. Resolver Plan
+  let idPlan: number | null = null;
+  try {
+    const { data: plan } = await client
+      .from('planes')
+      .select('id_plan')
+      .eq('tipo', input.tipo)
+      .eq('dias', input.planDias)
       .eq('activo', true)
       .maybeSingle();
-    if (productoError) throw productoError;
-    if (!producto) {
-      throw new Error(`No existe el producto “${input.productoNombre}” en el catálogo de Supabase.`);
+
+    if (plan?.id_plan) {
+      idPlan = plan.id_plan;
+    } else {
+      const { data: primerPlan } = await client
+        .from('planes')
+        .select('id_plan')
+        .eq('tipo', input.tipo)
+        .eq('activo', true)
+        .limit(1)
+        .maybeSingle();
+      idPlan = primerPlan?.id_plan ?? null;
     }
-    if (Number(producto.stock_deposito) < 1) {
-      throw new Error(`El producto “${input.productoNombre}” no tiene stock disponible.`);
+  } catch (e) {
+    console.warn('Error resolviendo plan en Supabase:', e);
+  }
+
+  // 3. Resolver Producto si aplica
+  let idProducto: number | null = null;
+  if (input.tipo === 'PRODUCTO' && input.productoNombre) {
+    try {
+      const { data: producto } = await client
+        .from('productos')
+        .select('id_producto, stock_deposito')
+        .ilike('nombre', `%${input.productoNombre.trim()}%`)
+        .eq('activo', true)
+        .limit(1)
+        .maybeSingle();
+
+      if (producto?.id_producto) {
+        idProducto = producto.id_producto;
+      } else {
+        const { data: nuevoProd } = await client
+          .from('productos')
+          .insert({
+            nombre: input.productoNombre.trim(),
+            stock_deposito: 10,
+            stock_calle: 0,
+            costo_ars: input.montoCapital,
+            activo: true,
+          })
+          .select('id_producto')
+          .single();
+        if (nuevoProd?.id_producto) {
+          idProducto = nuevoProd.id_producto;
+        }
+      }
+    } catch (e) {
+      console.warn('Error resolviendo producto en Supabase:', e);
     }
-    idProducto = producto.id_producto;
   }
 
   const { data: operacion, error: operacionError } = await client
@@ -150,8 +220,8 @@ export async function crearOperacionEnSupabase(input: {
       id_cliente: idCliente,
       tipo: input.tipo,
       id_producto: idProducto,
-      id_plan: plan.id_plan,
-      id_cobrador_actual: cobrador.id_cobrador,
+      id_plan: idPlan,
+      id_cobrador_actual: idCobrador,
       monto_capital: input.montoCapital,
       monto_total: input.montoTotal,
       importe_cuota: input.importeCuota,

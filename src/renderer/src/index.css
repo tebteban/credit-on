@@ -39,14 +39,27 @@
 }
 
 @media print {
-  body {
+  html, body, #root {
     background: white !important;
-    color: black !important;
+    color: #0f172a !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   .no-print {
     display: none !important;
   }
   .print-only {
     display: block !important;
+  }
+  /* Eliminar scrollbars y overflow en print */
+  * {
+    overflow: visible !important;
+  }
+  @page {
+    margin: 1cm;
+    size: auto;
   }
 }

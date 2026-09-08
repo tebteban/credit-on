@@ -452,22 +452,159 @@ export function calcularExigibleHoy(cuotas: Cuota[], hoy: Date = new Date()): {
  */
 export function calcularCuotaEfectivo(
   capital:      number,
-  tasaPct:      number,   // ej. 30 para 30%
-  diasPlan:     number
-): { cuota_diaria: number; monto_total: number; interes_total: number } {
-  if (capital <= 0 || diasPlan <= 0 || tasaPct < 0) {
-    throw new Error('calcularCuotaEfectivo: parámetros inválidos');
+  tasaPctOrDias: number,   // ej. 30 para 30%, o 26 para 26 días si diasPlan es undefined
+  diasPlan?:    number
+): {
+  cuota_diaria: number;
+  cuotaDiaria: number;
+  monto_total: number;
+  montoTotal: number;
+  total: number;
+  interes_total: number;
+  interes: number;
+  dias: number;
+  tasaPct: number;
+} {
+  let tasaPct = 30;
+  let dias = 26;
+
+  if (diasPlan !== undefined) {
+    // Firma tradicional: (capital, tasaPct, diasPlan)
+    tasaPct = tasaPctOrDias;
+    dias = diasPlan;
+  } else {
+    // Firma simplificada: (capital, dias)
+    dias = tasaPctOrDias;
+    if (dias === 26) {
+      tasaPct = 30;
+    } else if (dias === 35) {
+      tasaPct = 40;
+    } else {
+      tasaPct = Math.round(30 + ((dias - 26) * 10 / 9));
+    }
   }
-  const monto_total   = capital * (1 + tasaPct / 100);
-  const cuota_diaria  = monto_total / diasPlan;
-  const interes_total = monto_total - capital;
+
+  const safeCapital = Math.max(0, capital || 0);
+  const safeDias = Math.max(1, dias || 1);
+  const safeTasa = Math.max(0, tasaPct || 0);
+
+  const monto_total = Math.round(safeCapital * (1 + safeTasa / 100));
+  const cuota_diaria = Math.round(monto_total / safeDias);
+  const interes_total = monto_total - safeCapital;
 
   return {
-    cuota_diaria:  parseFloat(cuota_diaria.toFixed(2)),
-    monto_total:   parseFloat(monto_total.toFixed(2)),
-    interes_total: parseFloat(interes_total.toFixed(2)),
+    cuota_diaria,
+    cuotaDiaria: cuota_diaria,
+    monto_total,
+    montoTotal: monto_total,
+    total: monto_total,
+    interes_total,
+    interes: interes_total,
+    dias: safeDias,
+    tasaPct: safeTasa,
   };
 }
+
+// ============================================================================
+// PLANES OFICIALES Y MATRIZ DE CUOTAS (LISTA DE PRECIO HISTÓRICA CREDIT-ON)
+// ============================================================================
+
+export interface PlanProductoDef {
+  cuotas: number;
+  semanas: number;
+  recargoPct: number;
+  recargoPorcentaje: string;
+  coeficiente: number;
+  label: string;
+  descripcion: string;
+}
+
+export const PLANES_PRODUCTO_OFICIALES: PlanProductoDef[] = [
+  { cuotas: 42,  semanas: 7,  recargoPct: 53, recargoPorcentaje: '+53%', coeficiente: 1.53, label: 'Plan 42 Cuotas',  descripcion: '7 Semanas (+53% recargo)' },
+  { cuotas: 84,  semanas: 14, recargoPct: 63, recargoPorcentaje: '+63%', coeficiente: 1.63, label: 'Plan 84 Cuotas',  descripcion: '14 Semanas (+63% recargo)' },
+  { cuotas: 135, semanas: 23, recargoPct: 73, recargoPorcentaje: '+73%', coeficiente: 1.73, label: 'Plan 135 Cuotas', descripcion: '23 Semanas (+73% recargo)' },
+  { cuotas: 175, semanas: 30, recargoPct: 83, recargoPorcentaje: '+83%', coeficiente: 1.83, label: 'Plan 175 Cuotas', descripcion: '30 Semanas (+83% recargo)' },
+  { cuotas: 220, semanas: 37, recargoPct: 93, recargoPorcentaje: '+93%', coeficiente: 1.93, label: 'Plan 220 Cuotas', descripcion: '37 Semanas (+93% recargo)' },
+];
+
+export interface PlanEfectivoDef {
+  dias: number;
+  tasaPct: number;
+  tasaInteres: number;
+  label: string;
+  descripcion: string;
+}
+
+export const PLANES_EFECTIVO_OFICIALES: PlanEfectivoDef[] = [
+  { dias: 26, tasaPct: 30, tasaInteres: 30, label: 'Plan 26 Días', descripcion: 'Tasa fija 30%' },
+  { dias: 35, tasaPct: 40, tasaInteres: 40, label: 'Plan 35 Días', descripcion: 'Tasa fija 40%' },
+];
+
+/**
+ * Calcula la cuota y total financiado de un producto según la matriz de la LISTA DE PRECIO.
+ * Si el número de cuotas no es uno de los estándar (42, 84, 135, 175, 220), se interpola
+ * o se aplica un recargo proporcional de referencia.
+ */
+export function calcularCuotaProducto(
+  costoBase: number,
+  cuotas: number
+): {
+  cuota_diaria: number;
+  cuotaDiaria: number;
+  cuota_semanal: number;
+  cuotaSemanal: number;
+  monto_total: number;
+  montoTotal: number;
+  total: number;
+  recargo_monto: number;
+  recargoMonto: number;
+  recargo: number;
+  interes: number;
+  recargo_pct: number;
+  recargoPct: number;
+  recargoPorcentaje: string;
+  semanas: number;
+} {
+  const safeCosto = Math.max(0, costoBase || 0);
+  const safeCuotas = Math.max(1, cuotas || 1);
+
+  const planOficial = PLANES_PRODUCTO_OFICIALES.find(p => p.cuotas === safeCuotas);
+  let recargoPct = 63; // Default 84 cuotas
+  let semanas = Math.max(1, Math.round(safeCuotas / 6));
+
+  if (planOficial) {
+    recargoPct = planOficial.recargoPct;
+    semanas = planOficial.semanas;
+  } else {
+    // Estimación lineal basada en la progresión original: base 53% a las 42 cuotas + ~0.22% por cuota adicional
+    recargoPct = Math.round(53 + ((safeCuotas - 42) * (40 / 178)));
+  }
+
+  const monto_total = Math.round(safeCosto * (1 + recargoPct / 100));
+  const cuota_diaria = Math.round(monto_total / safeCuotas);
+  const cuota_semanal = Math.round(monto_total / semanas);
+  const recargo_monto = monto_total - safeCosto;
+  const recargoPorcentaje = `+${recargoPct}%`;
+
+  return {
+    cuota_diaria,
+    cuotaDiaria: cuota_diaria,
+    cuota_semanal,
+    cuotaSemanal: cuota_semanal,
+    monto_total,
+    montoTotal: monto_total,
+    total: monto_total,
+    recargo_monto,
+    recargoMonto: recargo_monto,
+    recargo: recargo_monto,
+    interes: recargo_monto,
+    recargo_pct: recargoPct,
+    recargoPct,
+    recargoPorcentaje,
+    semanas,
+  };
+}
+
 
 // ============================================================================
 // TESTS UNITARIOS EMBEBIDOS (ejecutar con: npx ts-node calendar-engine.ts test)

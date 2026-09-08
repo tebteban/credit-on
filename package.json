@@ -7,19 +7,27 @@
   "author": "CREDIT-ON Dev Team",
   "scripts": {
     "dev": "electron-vite dev",
-    "dev:web": "vite src/renderer --port 3000 --host",
+    "dev:web": "vite --port 3000 --host",
+    "dev:pwa": "vite --port 3000 --host",
     "build": "electron-vite build",
+    "build:web": "vite build",
     "preview": "electron-vite preview",
     "test:payments": "npx tsx src/services/payment-service.test.ts",
-    "test:calendar": "npx tsx src/core/calendar-engine.ts test"
+    "test:calendar": "npx tsx src/core/calendar-engine.ts test",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:ui": "playwright test --ui",
+    "test": "npm run test:payments && npm run test:calendar && npm run test:e2e"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",
-    "tailwind-merge": "^3.0.1"
+    "tailwind-merge": "^3.0.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "^22.13.4",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",

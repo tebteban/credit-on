@@ -10,3 +10,22 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+interface Window {
+  electronAPI?: {
+    confirmarRendicionCaja: (payload: {
+      id_cobrador: number;
+      fecha: string;
+      monto_rendido: number;
+      notas?: string;
+    }) => Promise<{
+      exito: boolean;
+      timestamp: string;
+      id_cobrador: number;
+      fecha: string;
+      monto_rendido: number;
+      mensaje: string;
+    }>;
+    imprimirHojaDeRuta: () => Promise<{ exito: boolean }>;
+  };
+}

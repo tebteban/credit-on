@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron';
+import { app, shell, BrowserWindow, ipcMain, session } from 'electron';
 import { join } from 'path';
 import { existsSync } from 'fs';
 
@@ -77,11 +77,20 @@ ipcMain.handle('cierre-caja:confirmar-rendicion', async (_event, payload: { id_c
 // 2. Impresión directa / PDF de hoja de ruta
 ipcMain.handle('hoja-de-ruta:imprimir', async () => {
   if (!mainWindow) return { exito: false };
-  mainWindow.webContents.print({
-    silent: false,
-    printBackground: true
-  });
-  return { exito: true };
+  try {
+    mainWindow.webContents.print({
+      silent: false,
+      printBackground: true
+    }, (success, failureReason) => {
+      if (!success && failureReason !== 'cancelled') {
+        console.warn('Aviso de impresión:', failureReason);
+      }
+    });
+    return { exito: true };
+  } catch (err) {
+    console.error('Error al imprimir:', err);
+    return { exito: false };
+  }
 });
 
 // -----------------------------------------------------------------------------
