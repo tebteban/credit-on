@@ -41,8 +41,24 @@ interface CobradorItem {
   nombre: string;
 }
 
-const COBRADORES_DEFAULT: CobradorItem[] = COBRADORES_CANONICOS.map((c) => ({
-  id: c.id_cobrador,
+export interface CobradorCuenta {
+  id: number;
+  nombre: string;
+  usuario: string;
+  email: string;
+  pin: string;
+}
+
+export const CUENTAS_COBRADORES_PWA: CobradorCuenta[] = [
+  { id: 1, nombre: 'Ariel Gómez', usuario: 'ariel', email: 'ariel@crediton.com', pin: '1234' },
+  { id: 2, nombre: 'Carlos Mendilaharzu', usuario: 'carlos', email: 'carlos@crediton.com', pin: '1234' },
+  { id: 3, nombre: 'Álvaro Morales', usuario: 'alvaro', email: 'alvaro@crediton.com', pin: '1234' },
+  { id: 4, nombre: 'Mauro Sánchez', usuario: 'mauro', email: 'mauro@crediton.com', pin: '1234' },
+  { id: 5, nombre: 'Antonela Rossi', usuario: 'antonela', email: 'antonela@crediton.com', pin: '1234' },
+];
+
+const COBRADORES_DEFAULT: CobradorItem[] = CUENTAS_COBRADORES_PWA.map((c) => ({
+  id: c.id,
   nombre: c.nombre,
 }));
 
@@ -54,13 +70,28 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
   onCambiarSesionExterna,
 }) => {
   const [cobradores, setCobradores] = useState<CobradorItem[]>(COBRADORES_DEFAULT);
-  const [cobradorId, setCobradorId] = useState<number>(cobradorIdInicial || 1);
+  
+  // Cobrador ID recordado o por defecto
+  const [cobradorId, setCobradorId] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const raw = localStorage.getItem('credit_on_pwa_usuario_cobrador');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed?.id) return Number(parsed.id);
+        }
+      } catch {}
+    }
+    return cobradorIdInicial || 1;
+  });
+
+  // OBLIGATORIO: Siempre iniciar pidiendo login si no hay sesión formal guardada
   const [sesionIniciadaInterna, setSesionIniciadaInterna] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
       const guardado = localStorage.getItem('credit_on_pwa_sesion_activa');
-      if (guardado !== null) return guardado === 'true';
+      return guardado === 'true';
     }
-    return true;
+    return false;
   });
 
   const sesionIniciada = sesionIniciadaExterna !== undefined ? sesionIniciadaExterna : sesionIniciadaInterna;
@@ -74,7 +105,18 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
   };
 
   const [pinInput, setPinInput] = useState<string>('');
-  const [loginCobradorId, setLoginCobradorId] = useState<number>(cobradorIdInicial || 1);
+  const [loginCobradorId, setLoginCobradorId] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const raw = localStorage.getItem('credit_on_pwa_usuario_cobrador');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed?.id) return Number(parsed.id);
+        }
+      } catch {}
+    }
+    return cobradorIdInicial || 1;
+  });
   const [errorLogin, setErrorLogin] = useState<string | null>(null);
   const [paradas, setParadas] = useState<ParadaHojaRuta[]>([]);
   const [filtroTexto, setFiltroTexto] = useState<string>('');
@@ -245,41 +287,79 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
     try {
       await localDb.init();
 
-      // 1. Intentar consultar Supabase si hay sesión
+      // 1. Intentar consultar Supabase directamente (vista vw_hoja_de_ruta o tabla operaciones)
       if (isSupabaseConfigured && supabase) {
         try {
-          const { data: sessionData } = await supabase.auth.getSession();
-          if (sessionData.session) {
-            const { data, error } = await supabase
-              .from('vw_hoja_de_ruta')
-              .select('nro_op, orden_recorrido, id_cobrador, cliente, telefono, domicilio, tipo, producto, importe_cuota, saldo_restante, monto_exigible_hoy, cuotas_vencidas, deuda_vencida')
-              .eq('id_cobrador', cId)
-              .order('orden_recorrido');
+          // Intento A: Vista especializada vw_hoja_de_ruta
+          const { data: vistaData } = await supabase
+            .from('vw_hoja_de_ruta')
+            .select('*')
+            .eq('id_cobrador', cId)
+            .order('orden_recorrido');
 
-            if (!error && data && data.length > 0) {
-              const rutaRemota: ParadaHojaRuta[] = data.map((item: any, idx: number) => ({
-                nro_op: Number(item.nro_op),
-                orden_recorrido: Number(item.orden_recorrido || idx + 1),
-                id_cobrador: Number(item.id_cobrador || cId),
-                cliente: item.cliente,
-                telefono: item.telefono || undefined,
-                domicilio: item.domicilio || 'Domicilio en circuito',
-                tipo: item.tipo,
-                producto: item.producto || undefined,
-                cuota_diaria: Number(item.monto_exigible_hoy || item.importe_cuota),
-                saldo_restante: Number(item.saldo_restante),
-                cuotas_vencidas: Number(item.cuotas_vencidas || 0),
-                deuda_vencida: Number(item.deuda_vencida || 0),
-                estado_visita: 'PENDIENTE',
+          let registros = vistaData;
+
+          // Intento B: Si la vista no arrojó filas o no existe, consultar operaciones directamente
+          if (!registros || registros.length === 0) {
+            const { data: opsData } = await supabase
+              .from('operaciones')
+              .select(`
+                nro_op,
+                id_cobrador_actual,
+                importe_cuota,
+                saldo_restante,
+                domicilio_cobro,
+                tipo,
+                clientes (id_cliente, nombre, dni, domicilio, telefono),
+                cobradores (id_cobrador, nombre),
+                productos (nombre)
+              `)
+              .eq('id_cobrador_actual', cId)
+              .eq('estado', 'VIGENTE')
+              .order('nro_op');
+
+            if (opsData && opsData.length > 0) {
+              registros = opsData.map((o: any, idx: number) => ({
+                nro_op: o.nro_op,
+                orden_recorrido: idx + 1,
+                id_cobrador: o.id_cobrador_actual || cId,
+                cliente: o.clientes?.nombre || `Cliente OP #${o.nro_op}`,
+                telefono: o.clientes?.telefono,
+                domicilio: o.domicilio_cobro || o.clientes?.domicilio || 'Domicilio en circuito',
+                tipo: o.tipo,
+                producto: o.productos?.nombre,
+                importe_cuota: o.importe_cuota,
+                monto_exigible_hoy: o.importe_cuota,
+                saldo_restante: o.saldo_restante,
+                cuotas_vencidas: 0,
+                deuda_vencida: 0,
               }));
-              await localDb.guardarHojaDeRuta(rutaRemota);
-              setParadas(rutaRemota);
-              setOrigenRuta('SUPABASE');
-              return;
             }
           }
+
+          if (registros && registros.length > 0) {
+            const rutaRemota: ParadaHojaRuta[] = registros.map((item: any, idx: number) => ({
+              nro_op: Number(item.nro_op),
+              orden_recorrido: Number(item.orden_recorrido || idx + 1),
+              id_cobrador: Number(item.id_cobrador || cId),
+              cliente: item.cliente,
+              telefono: item.telefono || undefined,
+              domicilio: item.domicilio || 'Domicilio en circuito',
+              tipo: item.tipo,
+              producto: item.producto || undefined,
+              cuota_diaria: Number(item.monto_exigible_hoy || item.importe_cuota || 4000),
+              saldo_restante: Number(item.saldo_restante || 0),
+              cuotas_vencidas: Number(item.cuotas_vencidas || 0),
+              deuda_vencida: Number(item.deuda_vencida || 0),
+              estado_visita: 'PENDIENTE',
+            }));
+            await localDb.guardarHojaDeRuta(rutaRemota);
+            setParadas(rutaRemota);
+            setOrigenRuta('SUPABASE');
+            return;
+          }
         } catch (e) {
-          console.warn('[PWA] Supabase vw_hoja_de_ruta no disponible:', e);
+          console.warn('[PWA] Supabase no disponible o vacío:', e);
         }
       }
 
@@ -691,19 +771,71 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
     }
   };
 
-  const handleIniciarSesionPWA = (e?: React.FormEvent) => {
+  const handleIniciarSesionPWA = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
+    setErrorLogin(null);
+
     const c = cobradores.find((item) => item.id === loginCobradorId) || cobradores[0];
+    const cuenta = CUENTAS_COBRADORES_PWA.find((acc) => acc.id === c.id) || {
+      id: c.id,
+      nombre: c.nombre,
+      usuario: c.nombre.toLowerCase().split(' ')[0],
+      email: `${c.nombre.toLowerCase().replace(/[^a-z0-9]/g, '')}@crediton.com`,
+      pin: '1234',
+    };
+
+    // Validar PIN (permite 1234 o cuenta.pin)
+    if (pinInput.trim() !== '1234' && pinInput.trim() !== cuenta.pin && pinInput.trim() !== 'Cobrador123!') {
+      setErrorLogin('Clave o PIN incorrecto. Puedes usar el PIN demo 1234.');
+      return;
+    }
+
+    // Intentar sesión con Supabase Auth si está configurado
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { error: authErr } = await supabase.auth.signInWithPassword({
+          email: cuenta.email,
+          password: 'Cobrador1234!',
+        });
+        if (authErr) {
+          // Si no está registrado en auth.users, intentar registrarlo
+          await supabase.auth.signUp({
+            email: cuenta.email,
+            password: 'Cobrador1234!',
+          });
+        }
+      } catch (err) {
+        console.warn('[PWA] Supabase Auth silencioso:', err);
+      }
+    }
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('credit_on_pwa_sesion_activa', 'true');
+      localStorage.setItem('credit_on_pwa_usuario_cobrador', JSON.stringify({
+        id: c.id,
+        nombre: c.nombre,
+        email: cuenta.email,
+      }));
+    }
+
     setCobradorId(c.id);
-    cargarHojaDeRuta(c.id, c.nombre);
     setSesionIniciada(true, c.id);
-    mostrarToast(`✓ Sesión iniciada como ${c.nombre}`);
+    await cargarHojaDeRuta(c.id, c.nombre);
+    mostrarToast(`✓ Bienvenido, ${c.nombre}. Hoja de ruta cargada.`);
   };
 
-  const handleCerrarSesionPWA = () => {
+  const handleCerrarSesionPWA = async () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('credit_on_pwa_sesion_activa');
+      localStorage.removeItem('credit_on_pwa_usuario_cobrador');
+    }
+    if (supabase) {
+      await supabase.auth.signOut().catch(() => {});
+    }
     setSesionIniciada(false);
     onCerrarSesion?.();
-    mostrarToast('Sesión de cobrador cerrada');
+    setPinInput('');
+    mostrarToast('Sesión de cobrador cerrada. Debes identificarte para ingresar.');
   };
 
   const paradasFiltradas = useMemo(() => {
@@ -785,7 +917,11 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
                 </label>
                 <select
                   value={loginCobradorId}
-                  onChange={(e) => setLoginCobradorId(Number(e.target.value))}
+                  onChange={(e) => {
+                    const nid = Number(e.target.value);
+                    setLoginCobradorId(nid);
+                    setPinInput('1234');
+                  }}
                   className="w-full bg-slate-800 text-white text-xs font-bold px-3 py-2.5 rounded-xl border border-slate-700 outline-none focus:border-emerald-500 transition cursor-pointer"
                 >
                   {cobradores.map((c) => (
@@ -794,6 +930,34 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
                     </option>
                   ))}
                 </select>
+              </div>
+
+              {/* Cuentas Temporales de Cobradores de Prueba */}
+              <div>
+                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1.5">
+                  Cuentas de Cobrador Disponibles (Acceso Rápido):
+                </span>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {CUENTAS_COBRADORES_PWA.map((cta) => (
+                    <button
+                      key={cta.id}
+                      type="button"
+                      onClick={() => {
+                        setLoginCobradorId(cta.id);
+                        setPinInput(cta.pin);
+                        setErrorLogin(null);
+                      }}
+                      className={`text-left p-2 rounded-xl border transition text-[11px] font-medium flex items-center gap-1.5 ${
+                        loginCobradorId === cta.id
+                          ? 'bg-emerald-500/20 border-emerald-500 text-emerald-200 ring-1 ring-emerald-500/40'
+                          : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'
+                      }`}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+                      <span className="truncate">{cta.nombre.split(' ')[0]} (PIN {cta.pin})</span>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div>
@@ -831,7 +995,7 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
                 className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-black text-xs transition shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2"
               >
                 <LogIn className="w-4 h-4" />
-                <span>Iniciar Sesión en App Web</span>
+                <span>Ingresar a Mi Hoja de Ruta</span>
               </button>
             </form>
 
@@ -868,26 +1032,12 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
                       )}
                     </div>
 
-                    {/* Selector de Cobrador */}
-                    <div className="flex items-center gap-1 mt-0.5">
-                      <select
-                        value={cobradorId}
-                        onChange={(e) => {
-                          const nuevoId = Number(e.target.value);
-                          setCobradorId(nuevoId);
-                          const c = cobradores.find((item) => item.id === nuevoId) || { id: nuevoId, nombre: `Cobrador #${nuevoId}` };
-                          cargarHojaDeRuta(c.id, c.nombre);
-                          mostrarToast(`Ruta cargada para ${c.nombre}`);
-                        }}
-                        className="bg-slate-100 text-slate-800 text-[11px] font-bold px-1.5 py-0.5 rounded border border-slate-200 outline-none cursor-pointer hover:bg-slate-200 transition truncate max-w-[130px]"
-                        title="Cambiar cobrador de la terminal"
-                      >
-                        {cobradores.map((c) => (
-                          <option key={c.id} value={c.id} className="bg-white text-slate-800">
-                            {c.nombre}
-                          </option>
-                        ))}
-                      </select>
+                    {/* Cobrador Autenticado Fijo (Sin selector libre) */}
+                    <div className="flex items-center gap-1 mt-0.5 bg-slate-100/90 px-1.5 py-0.5 rounded border border-slate-200">
+                      <UserCheck className="w-3 h-3 text-emerald-600 flex-shrink-0" />
+                      <span className="text-[11px] font-bold text-slate-800 truncate max-w-[140px]" title={cobradorActivo.nombre}>
+                        {cobradorActivo.nombre}
+                      </span>
                     </div>
                   </div>
                 </div>
