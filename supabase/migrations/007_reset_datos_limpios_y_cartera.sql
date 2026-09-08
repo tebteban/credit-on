@@ -36,11 +36,11 @@ INSERT INTO public.planes (id_plan, tipo, dias, tasa_interes, descripcion, activ
   (3, 'PRODUCTO', 42, 0.00, 'Financiación Electro / Moto 42 cuotas', true)
 ON CONFLICT (id_plan) DO UPDATE SET tipo = EXCLUDED.tipo;
 
-INSERT INTO public.productos (id_producto, nombre, categoria, costo_ars, stock_deposito, stock_calle, activo) VALUES
+INSERT INTO public.productos (id_producto, nombre, categoria, costo, stock_deposito, stock_calle, activo) VALUES
   (1, 'MOTO CORVEN MIRAGE 110cc', 'Motos', 350000.00, 5, 2, true),
   (2, 'SMART TV SAMSUNG 43" 4K', 'Electro', 180000.00, 8, 3, true),
   (3, 'SOMMIER 2 PLAZAS CANON', 'Hogar', 120000.00, 10, 1, true)
-ON CONFLICT (id_producto) DO UPDATE SET nombre = EXCLUDED.nombre;
+ON CONFLICT (id_producto) DO UPDATE SET nombre = EXCLUDED.nombre, costo = EXCLUDED.costo;
 
 -- 4. INSERTAR CLIENTES MODELO LIMPIOS
 INSERT INTO public.clientes (id_cliente, nombre, dni, domicilio, telefono, calificacion) VALUES
@@ -70,9 +70,19 @@ INSERT INTO public.operaciones (
   (105, CURRENT_DATE - INTERVAL '4 days', 5, 'PRODUCTO', 2, 3, 3, 3, 180000.00, 270000.00, 13500.00, 270000.00, 1, 'VIGENTE', 'Jujuy 560 - B° Centro', 90000.00),
   (106, CURRENT_DATE - INTERVAL '1 days', 6, 'EFECTIVO', NULL, 1, 4, 1, 120000.00, 156000.00, 6000.00, 156000.00, 1, 'VIGENTE', 'Pasaje 12 Casa 44 - B° Autonomía', 36000.00);
 
--- Ajustar la secuencia de operaciones al máximo actual (106)
-SELECT setval('operaciones_nro_op_seq', 106, true);
-SELECT setval('clientes_id_cliente_seq', 6, true);
+-- Ajustar las secuencias de IDs al máximo actual de forma segura
+DO $$
+BEGIN
+  IF pg_get_serial_sequence('public.operaciones', 'nro_op') IS NOT NULL THEN
+    PERFORM setval(pg_get_serial_sequence('public.operaciones', 'nro_op'), 106, true);
+  END IF;
+  IF pg_get_serial_sequence('public.clientes', 'id_cliente') IS NOT NULL THEN
+    PERFORM setval(pg_get_serial_sequence('public.clientes', 'id_cliente'), 6, true);
+  END IF;
+  IF pg_get_serial_sequence('public.productos', 'id_producto') IS NOT NULL THEN
+    PERFORM setval(pg_get_serial_sequence('public.productos', 'id_producto'), 3, true);
+  END IF;
+END $$;
 
 -- 6. GENERAR CUOTAS PARA CADA OPERACIÓN (26 cuotas para OP 101, 102, 104, 106; 42 cuotas para 103, 105)
 DO $$
