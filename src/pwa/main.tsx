@@ -9,11 +9,17 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
     navigator.serviceWorker
       .register('/sw.js')
       .then((registration) => {
-        console.log('[PWA] Service Worker registrado con alcance:', registration.scope);
+        registration.update();
+        console.log('[PWA] Service Worker registrado y verificado:', registration.scope);
       })
       .catch((error) => {
         console.warn('[PWA] Error registrando Service Worker:', error);
       });
+  });
+
+  // Si un nuevo SW toma control, actualizar para refrescar assets
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    console.log('[PWA] Nuevo Service Worker activo, recargando para aplicar cambios...');
   });
 }
 

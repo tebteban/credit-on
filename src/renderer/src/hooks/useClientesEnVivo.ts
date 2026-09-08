@@ -87,16 +87,18 @@ export interface RegistroHistorialCobro {
   cobradores?: { nombre: string } | null;
 }
 
+import { COBRADORES_CANONICOS } from '../utils/cobradores-catalogo';
+
 export const STORAGE_CARTERA_OPERACIONES = 'credit_on_cartera_operaciones';
 export const STORAGE_HISTORIAL_COBROS = 'credit_on_historial_cobros';
 export const STORAGE_COBRADORES = 'credit_on_cobradores';
 
-export const COBRADORES_DEFAULT: CobradorInfo[] = [
-  { id_cobrador: 1, nombre: 'Carlos Mendilaharzu', porcentaje_comision: 8, telefono: '+54 9 381 445-1290' },
-  { id_cobrador: 2, nombre: 'Mauro Sánchez', porcentaje_comision: 8, telefono: '+54 9 381 552-8812' },
-  { id_cobrador: 3, nombre: 'Juan Pérez', porcentaje_comision: 7.5, telefono: '+54 9 381 671-0023' },
-  { id_cobrador: 4, nombre: 'Lucas Albarracín', porcentaje_comision: 9, telefono: '+54 9 381 332-9011' },
-];
+export const COBRADORES_DEFAULT: CobradorInfo[] = COBRADORES_CANONICOS.map((c) => ({
+  id_cobrador: c.id_cobrador,
+  nombre: c.nombre,
+  porcentaje_comision: c.porcentaje_comision,
+  telefono: c.telefono,
+}));
 
 import { generarCuotasSchedule } from '../../../core/schedule-engine';
 export { generarCuotasSchedule };
@@ -163,71 +165,71 @@ export function generarOperacionesDemo(): OperacionConMora[] {
       hoyStr,
       'EFECTIVO',
       100000,
-      20,
-      7500,
-      { id_cliente: 1, nombre: 'PÉREZ JUAN CARLOS', dni: '28491203', domicilio: 'Av. Belgrano 1420 - Centro', telefono: '385-4123456', calificacion: 'BUENO' },
-      COBRADORES_DEFAULT[0],
-      12,
+      26,
+      5000,
+      { id_cliente: 1, nombre: 'PÉREZ JUAN CARLOS', dni: '28456123', domicilio: 'Av. Belgrano 1420 - Centro', telefono: '385-4123456', calificacion: 'BUENO' },
+      COBRADORES_DEFAULT[0], // Ariel Gómez
+      2, // 2 pagadas
       0 // Al día
     ),
     armarOperacionConMora(
       102,
       hoyStr,
-      'PRODUCTO',
-      250000,
-      24,
-      15000,
-      { id_cliente: 2, nombre: 'COMERCIAL EL AMIGO', dni: '30112233', domicilio: 'Libertad 840 - Huaico Hondo', telefono: '385-5987654', calificacion: 'BUENO' },
-      COBRADORES_DEFAULT[1],
-      18,
+      'EFECTIVO',
+      80000,
+      26,
+      4000,
+      { id_cliente: 2, nombre: 'GÓMEZ MARÍA LAURA', dni: '33445566', domicilio: 'Roca Sur 245 - B° Cabildo', telefono: '385-6112233', calificacion: 'REGULAR' },
+      COBRADORES_DEFAULT[0], // Ariel Gómez
+      0,
       0 // Al día
     ),
     armarOperacionConMora(
       103,
       hoyStr,
-      'EFECTIVO',
-      80000,
-      16,
-      6500,
-      { id_cliente: 3, nombre: 'GÓMEZ MARÍA LAURA', dni: '33445566', domicilio: 'Roca Sur 245 - Cabildo', telefono: '385-6112233', calificacion: 'REGULAR' },
-      COBRADORES_DEFAULT[2],
-      8,
-      1 // Alerta (1 vencida)
+      'PRODUCTO',
+      350000,
+      42,
+      12000,
+      { id_cliente: 3, nombre: 'RODRÍGUEZ HUGO O.', dni: '25667788', domicilio: 'Av. Colón Sur 3100 - B° Ej. Argentino', telefono: '385-4889900', calificacion: 'BUENO' },
+      COBRADORES_DEFAULT[0], // Ariel Gómez
+      4,
+      0 // Al día
     ),
     armarOperacionConMora(
       104,
       hoyStr,
-      'PRODUCTO',
-      350000,
-      24,
-      21000,
-      { id_cliente: 4, nombre: 'TALLER MECÁNICO RODRÍGUEZ', dni: '25667788', domicilio: 'Av. Colón Sur 3100', telefono: '385-4889900', calificacion: 'REGULAR' },
-      COBRADORES_DEFAULT[3],
-      6,
-      3 // Mora Crítica (3 vencidas)
+      'EFECTIVO',
+      60000,
+      26,
+      3000,
+      { id_cliente: 4, nombre: 'BENÍTEZ CLAUDIO A.', dni: '29887112', domicilio: 'Calle 12 N° 450 - B° Mishqui Mayu', telefono: '385-4771234', calificacion: 'REGULAR' },
+      COBRADORES_DEFAULT[1], // Carlos Mendilaharzu
+      0,
+      0 // Al día
     ),
     armarOperacionConMora(
       105,
       hoyStr,
       'PRODUCTO',
       180000,
-      20,
+      42,
       13500,
-      { id_cliente: 5, nombre: 'BENÍTEZ CLAUDIO ANDRÉS', dni: '29887112', domicilio: 'Calle 12 N° 450 - B° Mishqui Mayu', telefono: '385-4771234', calificacion: 'RIESGO' },
-      COBRADORES_DEFAULT[0],
-      2,
-      6 // Evaluar Retiro (6 vencidas en producto)
+      { id_cliente: 5, nombre: 'BAZÁN NORMA BEATRIZ', dni: '22334556', domicilio: 'Jujuy 560 - B° Centro', telefono: '385-5129988', calificacion: 'BUENO' },
+      COBRADORES_DEFAULT[2], // Álvaro Morales
+      0,
+      0 // Al día
     ),
     armarOperacionConMora(
       106,
       hoyStr,
       'EFECTIVO',
       120000,
-      20,
-      8400,
-      { id_cliente: 6, nombre: 'BAZÁN NORMA BEATRIZ', dni: '22334556', domicilio: 'Jujuy 560 - Centro', telefono: '385-5129988', calificacion: 'BUENO' },
-      COBRADORES_DEFAULT[1],
-      15,
+      26,
+      6000,
+      { id_cliente: 6, nombre: 'CORVALÁN RAMÓN E.', dni: '24556778', domicilio: 'Pasaje 12 Casa 44 - B° Autonomía', telefono: '385-5334455', calificacion: 'BUENO' },
+      COBRADORES_DEFAULT[3], // Mauro Sánchez
+      0,
       0 // Al día
     ),
   ];
@@ -655,6 +657,7 @@ export function useClientesEnVivo() {
         cobradores: { nombre: op.cobrador.nombre },
         observacion: `Cobro imputado en cascada (${resultado.cuotas_totalmente_canceladas.length} cuotas canceladas)`
       });
+      hist.sort((a, b) => new Date(b.fecha_hora || 0).getTime() - new Date(a.fecha_hora || 0).getTime());
       localStorage.setItem(STORAGE_HISTORIAL_COBROS, JSON.stringify(hist.slice(0, 100)));
       window.dispatchEvent(new Event('credit_on_storage_update'));
     } catch {}
@@ -689,6 +692,7 @@ export function useClientesEnVivo() {
         observacion: observacion || 'Visita infructuosa registrada',
         cobradores: { nombre: op.cobrador.nombre }
       });
+      hist.sort((a, b) => new Date(b.fecha_hora || 0).getTime() - new Date(a.fecha_hora || 0).getTime());
       localStorage.setItem(STORAGE_HISTORIAL_COBROS, JSON.stringify(hist.slice(0, 100)));
       window.dispatchEvent(new Event('credit_on_storage_update'));
     } catch {}
@@ -710,7 +714,9 @@ export function useClientesEnVivo() {
       const histStr = localStorage.getItem(STORAGE_HISTORIAL_COBROS);
       if (histStr) {
         const hist: RegistroHistorialCobro[] = JSON.parse(histStr);
-        return hist.filter(h => h.nro_op === nro_op);
+        return hist
+          .filter(h => h.nro_op === nro_op)
+          .sort((a, b) => new Date(b.fecha_hora || 0).getTime() - new Date(a.fecha_hora || 0).getTime());
       }
     } catch {}
     return [];

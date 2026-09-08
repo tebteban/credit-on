@@ -86,13 +86,12 @@ export const HojaDeRutaImprimible: React.FC = () => {
     if (!operaciones || operaciones.length === 0) {
       // Clientes de demostración si aún no hay base de operaciones cargada
       return [
-        { orden: 1, op: 450, cliente: 'PÉREZ JUAN CARLOS', dom: 'AV. BELGRANO 1420 - B° CENTRO', tel: '385-4123456', tipo: 'EFECTIVO', cuota: 5000, atraso: 0, cobradoHoy: 0 },
-        { orden: 2, op: 452, cliente: 'COMERCIAL EL AMIGO - SILVIA', dom: 'LIBERTAD 840 - B° HUAICO HONDO', tel: '385-5987654', tipo: 'PRODUCTO', cuota: 4000, atraso: 0, cobradoHoy: 0 },
-        { orden: 3, op: 458, cliente: 'GÓMEZ MARÍA LAURA', dom: 'ROCA SUR 245 - B° CABILDO', tel: '385-6112233', tipo: 'EFECTIVO', cuota: 2500, atraso: 1, cobradoHoy: 0 },
-        { orden: 4, op: 461, cliente: 'TALLER MECÁNICO RODRÍGUEZ', dom: 'AV. COLÓN SUR 3100', tel: '385-4889900', tipo: 'PRODUCTO', cuota: 8000, atraso: 0, cobradoHoy: 0 },
-        { orden: 5, op: 469, cliente: 'CORVALÁN RAMÓN E.', dom: 'PASAJE 12 CASA 44 - B° AUTONOMÍA', tel: '385-5334455', tipo: 'EFECTIVO', cuota: 15000, atraso: 2, cobradoHoy: 0 },
-        { orden: 6, op: 472, cliente: 'FARMACIA SAN ROQUE', dom: 'MITRE 620 - CENTRO', tel: '385-4221199', tipo: 'PRODUCTO', cuota: 6000, atraso: 0, cobradoHoy: 0 },
-        { orden: 7, op: 480, cliente: 'LÓPEZ PATRICIA', dom: 'MORENO NORTE 1150 - B° 8 DE ABRIL', tel: '385-6778899', tipo: 'EFECTIVO', cuota: 4000, atraso: 0, cobradoHoy: 0 },
+        { orden: 1, op: 101, cliente: 'PÉREZ JUAN CARLOS', dom: 'AV. BELGRANO 1420 - CENTRO', tel: '385-4123456', tipo: 'EFECTIVO', cuota: 5000, atraso: 0, cobradoHoy: 0 },
+        { orden: 2, op: 102, cliente: 'GÓMEZ MARÍA LAURA', dom: 'ROCA SUR 245 - B° CABILDO', tel: '385-6112233', tipo: 'EFECTIVO', cuota: 4000, atraso: 0, cobradoHoy: 0 },
+        { orden: 3, op: 103, cliente: 'RODRÍGUEZ HUGO O.', dom: 'AV. COLÓN SUR 3100 - B° EJ. ARGENTINO', tel: '385-4889900', tipo: 'PRODUCTO', cuota: 12000, atraso: 0, cobradoHoy: 0 },
+        { orden: 4, op: 104, cliente: 'BENÍTEZ CLAUDIO A.', dom: 'CALLE 12 N° 450 - B° MISHQUI MAYU', tel: '385-4771234', tipo: 'EFECTIVO', cuota: 3000, atraso: 0, cobradoHoy: 0 },
+        { orden: 5, op: 105, cliente: 'BAZÁN NORMA BEATRIZ', dom: 'JUJUY 560 - B° CENTRO', tel: '385-5129988', tipo: 'PRODUCTO', cuota: 13500, atraso: 0, cobradoHoy: 0 },
+        { orden: 6, op: 106, cliente: 'CORVALÁN RAMÓN E.', dom: 'PASAJE 12 CASA 44 - B° AUTONOMÍA', tel: '385-5334455', tipo: 'EFECTIVO', cuota: 6000, atraso: 0, cobradoHoy: 0 },
       ];
     }
 

@@ -5,10 +5,9 @@
  * y Cache-First para los bundles de la interfaz gráfica.
  */
 
-const CACHE_NAME = 'credit-on-pwa-v1';
+const CACHE_NAME = 'credit-on-pwa-v4';
 const ASSETS_TO_CACHE = [
   '/',
-  '/index.html',
   '/manifest.json',
   '/logo-credit-on.jpg'
 ];
@@ -28,6 +27,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME) {
+            console.log('[SW] Purgando caché obsoleta:', key);
             return caches.delete(key);
           }
           return null;

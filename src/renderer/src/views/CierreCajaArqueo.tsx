@@ -131,6 +131,7 @@ export const CierreCajaArqueo: React.FC = () => {
                   cobrosHistorial.push(dc);
                 }
               });
+              cobrosHistorial.sort((a: any, b: any) => new Date(b.fecha_hora || 0).getTime() - new Date(a.fecha_hora || 0).getTime());
             }
           } catch (err) {
             console.warn('[CierreCajaArqueo] Error al consultar cobros en Supabase:', err);

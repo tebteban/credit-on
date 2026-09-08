@@ -49,365 +49,91 @@ export function generarDatosSimulacionOperacional(): {
   const cAlvaro = COBRADORES_SIMULACION[2];
   const cMauro = COBRADORES_SIMULACION[3];
   const cAntonela = COBRADORES_SIMULACION[4];
-  const cOriana = COBRADORES_SIMULACION[5];
 
   const operaciones: OperacionConMora[] = [
-    // ─── ARIEL GÓMEZ (4 operaciones) ───
     armarOperacionConMora(
-      201, hoyStr, 'EFECTIVO', 100000, 20, 5000,
-      { id_cliente: 201, nombre: 'PÉREZ JUAN CARLOS', dni: '28491203', domicilio: 'Av. Belgrano 1420 - Centro', telefono: '385-4123456', calificacion: 'BUENO' },
-      cAriel, 13, 0
+      101, hoyStr, 'EFECTIVO', 100000, 26, 5000,
+      { id_cliente: 1, nombre: 'PÉREZ JUAN CARLOS', dni: '28456123', domicilio: 'Av. Belgrano 1420 - Centro', telefono: '385-4123456', calificacion: 'BUENO' },
+      cAriel, 2, 0
     ),
     armarOperacionConMora(
-      202, hoyStr, 'PRODUCTO', 130000, 20, 6500,
-      { id_cliente: 202, nombre: 'MERCERÍA LA ILUSIÓN', dni: '27889123', domicilio: 'Calle España 320 - La Banda', telefono: '385-4991122', calificacion: 'BUENO' },
-      cAriel, 10, 0
+      102, hoyStr, 'EFECTIVO', 80000, 26, 4000,
+      { id_cliente: 2, nombre: 'GÓMEZ MARÍA LAURA', dni: '33445566', domicilio: 'Roca Sur 245 - B° Cabildo', telefono: '385-6112233', calificacion: 'REGULAR' },
+      cAriel, 0, 0
     ),
     armarOperacionConMora(
-      203, hoyStr, 'EFECTIVO', 90000, 20, 4500,
-      { id_cliente: 203, nombre: 'GÓMEZ MARÍA LAURA', dni: '33445566', domicilio: 'Roca Sur 245 - Cabildo', telefono: '385-6112233', calificacion: 'BUENO' },
-      cAriel, 15, 0
+      103, hoyStr, 'PRODUCTO', 350000, 42, 12000,
+      { id_cliente: 3, nombre: 'RODRÍGUEZ HUGO O.', dni: '25667788', domicilio: 'Av. Colón Sur 3100 - B° Ej. Argentino', telefono: '385-4889900', calificacion: 'BUENO' },
+      cAriel, 4, 0
     ),
     armarOperacionConMora(
-      204, hoyStr, 'PRODUCTO', 120000, 20, 6000,
-      { id_cliente: 204, nombre: 'FARMACIA SAN ROQUE', dni: '30554433', domicilio: 'Mitre 620 - Centro', telefono: '385-4221199', calificacion: 'BUENO' },
-      cAriel, 8, 0
-    ),
-
-    // ─── CARLOS MENDILAHARZU (4 operaciones) ───
-    armarOperacionConMora(
-      205, hoyStr, 'PRODUCTO', 180000, 24, 7500,
-      { id_cliente: 205, nombre: 'TALLER MECÁNICO RODRÍGUEZ', dni: '25667788', domicilio: 'Av. Colón Sur 3100', telefono: '385-4889900', calificacion: 'BUENO' },
-      cCarlos, 18, 0
+      104, hoyStr, 'EFECTIVO', 60000, 26, 3000,
+      { id_cliente: 4, nombre: 'BENÍTEZ CLAUDIO A.', dni: '29887112', domicilio: 'Calle 12 N° 450 - B° Mishqui Mayu', telefono: '385-4771234', calificacion: 'REGULAR' },
+      cCarlos, 0, 0
     ),
     armarOperacionConMora(
-      206, hoyStr, 'PRODUCTO', 192000, 24, 8000,
-      { id_cliente: 206, nombre: 'COMERCIAL EL AMIGO', dni: '30112233', domicilio: 'Libertad 840 - Huaico Hondo', telefono: '385-5987654', calificacion: 'BUENO' },
-      cCarlos, 16, 0
+      105, hoyStr, 'PRODUCTO', 180000, 42, 13500,
+      { id_cliente: 5, nombre: 'BAZÁN NORMA BEATRIZ', dni: '22334556', domicilio: 'Jujuy 560 - B° Centro', telefono: '385-5129988', calificacion: 'BUENO' },
+      cAlvaro, 0, 0
     ),
     armarOperacionConMora(
-      207, hoyStr, 'EFECTIVO', 80000, 20, 4000,
-      { id_cliente: 207, nombre: 'VERDULERÍA SAN CAYETANO', dni: '29881122', domicilio: 'Av. Aguirre 1150', telefono: '385-4778899', calificacion: 'BUENO' },
-      cCarlos, 12, 0
-    ),
-    armarOperacionConMora(
-      208, hoyStr, 'EFECTIVO', 70000, 20, 3500,
-      { id_cliente: 208, nombre: 'KIOSCO EL PASO', dni: '32119944', domicilio: 'Pedro León Gallo 410', telefono: '385-4332211', calificacion: 'BUENO' },
-      cCarlos, 9, 0
-    ),
-
-    // ─── ÁLVARO MORALES (4 operaciones) ───
-    armarOperacionConMora(
-      209, hoyStr, 'PRODUCTO', 110000, 20, 5500,
-      { id_cliente: 209, nombre: 'BENÍTEZ CLAUDIO ANDRÉS', dni: '29887112', domicilio: 'Calle 12 N° 450 - Mishqui Mayu', telefono: '385-4771234', calificacion: 'BUENO' },
-      cAlvaro, 7, 0
-    ),
-    armarOperacionConMora(
-      210, hoyStr, 'PRODUCTO', 216000, 24, 9000,
-      { id_cliente: 210, nombre: 'DISTRIBUIDORA NORTE', dni: '26441188', domicilio: 'Av. Solís Este 890', telefono: '385-4552233', calificacion: 'BUENO' },
-      cAlvaro, 14, 0
-    ),
-    armarOperacionConMora(
-      211, hoyStr, 'EFECTIVO', 140000, 20, 7000,
-      { id_cliente: 211, nombre: 'CARNICERÍA LA TRADICIÓN', dni: '24991144', domicilio: 'Independencia 2100', telefono: '385-4663344', calificacion: 'BUENO' },
-      cAlvaro, 11, 0
-    ),
-    armarOperacionConMora(
-      212, hoyStr, 'EFECTIVO', 90000, 20, 4500,
-      { id_cliente: 212, nombre: 'DESPENSA DOÑA ROSA', dni: '31882233', domicilio: 'B° San Fernando Mz 14 Lote 5', telefono: '385-4228877', calificacion: 'REGULAR' },
-      cAlvaro, 4, 1 // Pendiente / mora leve
-    ),
-
-    // ─── MAURO SÁNCHEZ (4 operaciones) ───
-    armarOperacionConMora(
-      213, hoyStr, 'EFECTIVO', 120000, 20, 6000,
-      { id_cliente: 213, nombre: 'BAZÁN NORMA BEATRIZ', dni: '22334556', domicilio: 'Jujuy 560 - Centro', telefono: '385-5129988', calificacion: 'BUENO' },
-      cMauro, 16, 0
-    ),
-    armarOperacionConMora(
-      214, hoyStr, 'PRODUCTO', 204000, 24, 8500,
-      { id_cliente: 214, nombre: 'AUTOPARTES SANTIAGO', dni: '28114455', domicilio: 'Av. Moreno 1850', telefono: '385-4338877', calificacion: 'BUENO' },
-      cMauro, 12, 0
-    ),
-    armarOperacionConMora(
-      215, hoyStr, 'EFECTIVO', 100000, 20, 5000,
-      { id_cliente: 215, nombre: 'PANADERÍA LA ESPIGA', dni: '25778899', domicilio: 'Av. Belgrano Sur 2400', telefono: '385-4881122', calificacion: 'BUENO' },
-      cMauro, 11, 0
-    ),
-    armarOperacionConMora(
-      216, hoyStr, 'EFECTIVO', 80000, 20, 4000,
-      { id_cliente: 216, nombre: 'PELUQUERÍA ESTILO', dni: '34112233', domicilio: 'Sarmiento 180 - La Banda', telefono: '385-4993322', calificacion: 'BUENO' },
-      cMauro, 6, 0 // Pendiente de visita
-    ),
-
-    // ─── ANTONELA ROSSI (4 operaciones) ───
-    armarOperacionConMora(
-      217, hoyStr, 'PRODUCTO', 130000, 20, 6500,
-      { id_cliente: 217, nombre: 'ZAPATERÍA CALZADOS DANI', dni: '32556677', domicilio: 'Peatonal Tucumán 140', telefono: '385-4119900', calificacion: 'BUENO' },
-      cAntonela, 15, 0
-    ),
-    armarOperacionConMora(
-      218, hoyStr, 'PRODUCTO', 140000, 20, 7000,
-      { id_cliente: 218, nombre: 'BOUTIQUE ELEGANTE', dni: '29443322', domicilio: '24 de Septiembre 350', telefono: '385-4667788', calificacion: 'BUENO' },
-      cAntonela, 14, 0
-    ),
-    armarOperacionConMora(
-      219, hoyStr, 'PRODUCTO', 100000, 20, 5000,
-      { id_cliente: 219, nombre: 'LIBRERÍA NUEVO MUNDO', dni: '33118899', domicilio: 'Urquiza 290', telefono: '385-4554411', calificacion: 'REGULAR' },
-      cAntonela, 5, 2 // Visita sin pago (local cerrado)
-    ),
-    armarOperacionConMora(
-      220, hoyStr, 'EFECTIVO', 160000, 20, 8000,
-      { id_cliente: 220, nombre: 'RESTAURANTE EL FOGÓN', dni: '26332211', domicilio: 'Av. Rivadavia 430', telefono: '385-4775533', calificacion: 'BUENO' },
-      cAntonela, 8, 0 // Pendiente
-    ),
-
-    // ─── ORIANA PAZ (4 operaciones) ───
-    armarOperacionConMora(
-      221, hoyStr, 'PRODUCTO', 110000, 20, 5500,
-      { id_cliente: 221, nombre: 'BAZAR SANTIAGUEÑO', dni: '27448833', domicilio: 'Av. Alsina 720', telefono: '385-4223366', calificacion: 'BUENO' },
-      cOriana, 12, 0
-    ),
-    armarOperacionConMora(
-      222, hoyStr, 'PRODUCTO', 90000, 20, 4500,
-      { id_cliente: 222, nombre: 'DIETÉTICA VIDA SANA', dni: '35114422', domicilio: 'Av. Lugones 1100', telefono: '385-4997788', calificacion: 'BUENO' },
-      cOriana, 10, 0
-    ),
-    armarOperacionConMora(
-      223, hoyStr, 'PRODUCTO', 120000, 20, 6000,
-      { id_cliente: 223, nombre: 'GIMNASIO IMPACTO', dni: '30229988', domicilio: 'Av. Belgrano 3400', telefono: '385-4441155', calificacion: 'BUENO' },
-      cOriana, 9, 0
-    ),
-    armarOperacionConMora(
-      224, hoyStr, 'PRODUCTO', 150000, 20, 7500,
-      { id_cliente: 224, nombre: 'FERRETERÍA INDUSTRIAL', dni: '25117766', domicilio: 'Av. Madre de Ciudades 280', telefono: '385-4886633', calificacion: 'BUENO' },
-      cOriana, 14, 0
+      106, hoyStr, 'EFECTIVO', 120000, 26, 6000,
+      { id_cliente: 6, nombre: 'CORVALÁN RAMÓN E.', dni: '24556778', domicilio: 'Pasaje 12 Casa 44 - B° Autonomía', telefono: '385-5334455', calificacion: 'BUENO' },
+      cMauro, 0, 0
     ),
   ];
 
-  // Generar cobros e incidencias de la jornada actual (Hoy por la mañana)
+  // Generar cobros de la jornada actual ordenados DESCENDENTEMENTE (más nuevos arriba)
   const historialCobros: CobroSimulado[] = [
-    // Cobros de Ariel Gómez (4 de 4 cobrados - 100%)
     {
-      id_cobro: 1001,
-      nro_op: 201,
-      id_cobrador: cAriel.id_cobrador,
-      fecha_hora: crearHoraHoy(8, 45),
-      monto_cobrado: 5000,
+      id_cobro: 1005,
+      nro_op: 106,
+      id_cobrador: cMauro.id_cobrador,
+      fecha_hora: crearHoraHoy(11, 40),
+      monto_cobrado: 6000,
       cuotas_equivalentes: 1,
-      cobradores: { nombre: cAriel.nombre },
-      observacion: 'Cobro asentado en calle — Terminal PWA'
-    },
-    {
-      id_cobro: 1002,
-      nro_op: 202,
-      id_cobrador: cAriel.id_cobrador,
-      fecha_hora: crearHoraHoy(9, 20),
-      monto_cobrado: 6500,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cAriel.nombre },
-      observacion: 'Cobro completo de cuota diaria'
-    },
-    {
-      id_cobro: 1003,
-      nro_op: 203,
-      id_cobrador: cAriel.id_cobrador,
-      fecha_hora: crearHoraHoy(10, 15),
-      monto_cobrado: 4500,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cAriel.nombre },
-      observacion: 'Cobro en efectivo recepcionado'
+      cobradores: { nombre: cMauro.nombre },
+      observacion: 'Cobro cuota diaria en calle (PWA)'
     },
     {
       id_cobro: 1004,
-      nro_op: 204,
-      id_cobrador: cAriel.id_cobrador,
-      fecha_hora: crearHoraHoy(11, 10),
-      monto_cobrado: 6000,
+      nro_op: 105,
+      id_cobrador: cAlvaro.id_cobrador,
+      fecha_hora: crearHoraHoy(11, 15),
+      monto_cobrado: 13500,
       cuotas_equivalentes: 1,
-      cobradores: { nombre: cAriel.nombre },
-      observacion: 'Cobro cuota Smart TV 43"'
-    },
-
-    // Cobros de Carlos Mendilaharzu (4 de 4 cobrados - 100%)
-    {
-      id_cobro: 1005,
-      nro_op: 205,
-      id_cobrador: cCarlos.id_cobrador,
-      fecha_hora: crearHoraHoy(9, 5),
-      monto_cobrado: 7500,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cCarlos.nombre },
-      observacion: 'Cobro cuota taller mecánico'
+      cobradores: { nombre: cAlvaro.nombre },
+      observacion: 'Cobro cuota Smart TV 43" 4K'
     },
     {
-      id_cobro: 1006,
-      nro_op: 206,
-      id_cobrador: cCarlos.id_cobrador,
-      fecha_hora: crearHoraHoy(9, 40),
-      monto_cobrado: 8000,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cCarlos.nombre },
-      observacion: 'Cobro cuota comercio'
-    },
-    {
-      id_cobro: 1007,
-      nro_op: 207,
+      id_cobro: 1003,
+      nro_op: 104,
       id_cobrador: cCarlos.id_cobrador,
       fecha_hora: crearHoraHoy(10, 30),
-      monto_cobrado: 4000,
+      monto_cobrado: 3000,
       cuotas_equivalentes: 1,
       cobradores: { nombre: cCarlos.nombre },
-      observacion: 'Cobro en calle — Verdulería'
+      observacion: 'Cobro cuota préstamo en efectivo'
     },
     {
-      id_cobro: 1008,
-      nro_op: 208,
-      id_cobrador: cCarlos.id_cobrador,
-      fecha_hora: crearHoraHoy(11, 25),
-      monto_cobrado: 3500,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cCarlos.nombre },
-      observacion: 'Cobro cuota Kiosco'
-    },
-
-    // Cobros de Álvaro Morales (3 cobrados, 1 pendiente - 82.7%)
-    {
-      id_cobro: 1009,
-      nro_op: 209,
-      id_cobrador: cAlvaro.id_cobrador,
-      fecha_hora: crearHoraHoy(8, 55),
-      monto_cobrado: 5500,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cAlvaro.nombre },
-      observacion: 'Cobro cuota electrodoméstico'
-    },
-    {
-      id_cobro: 1010,
-      nro_op: 210,
-      id_cobrador: cAlvaro.id_cobrador,
+      id_cobro: 1002,
+      nro_op: 103,
+      id_cobrador: cAriel.id_cobrador,
       fecha_hora: crearHoraHoy(9, 50),
-      monto_cobrado: 9000,
+      monto_cobrado: 12000,
       cuotas_equivalentes: 1,
-      cobradores: { nombre: cAlvaro.nombre },
-      observacion: 'Cobro en distribuidora'
+      cobradores: { nombre: cAriel.nombre },
+      observacion: 'Cobro cuota moto Corven'
     },
     {
-      id_cobro: 1011,
-      nro_op: 211,
-      id_cobrador: cAlvaro.id_cobrador,
-      fecha_hora: crearHoraHoy(11, 40),
-      monto_cobrado: 7000,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cAlvaro.nombre },
-      observacion: 'Cobro cuota carnicería'
-    },
-
-    // Cobros de Mauro Sánchez (3 cobrados, 1 pendiente - 82.9%)
-    {
-      id_cobro: 1012,
-      nro_op: 213,
-      id_cobrador: cMauro.id_cobrador,
-      fecha_hora: crearHoraHoy(9, 15),
-      monto_cobrado: 6000,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cMauro.nombre },
-      observacion: 'Cobro préstamo efectivo'
-    },
-    {
-      id_cobro: 1013,
-      nro_op: 214,
-      id_cobrador: cMauro.id_cobrador,
-      fecha_hora: crearHoraHoy(10, 0),
-      monto_cobrado: 8500,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cMauro.nombre },
-      observacion: 'Cobro cuota autopartes'
-    },
-    {
-      id_cobro: 1014,
-      nro_op: 215,
-      id_cobrador: cMauro.id_cobrador,
-      fecha_hora: crearHoraHoy(11, 5),
+      id_cobro: 1001,
+      nro_op: 101,
+      id_cobrador: cAriel.id_cobrador,
+      fecha_hora: crearHoraHoy(9, 10),
       monto_cobrado: 5000,
       cuotas_equivalentes: 1,
-      cobradores: { nombre: cMauro.nombre },
-      observacion: 'Cobro panadería'
-    },
-
-    // Cobros de Antonela Rossi (2 cobrados, 1 no-pago por cerrado, 1 pendiente - 50.9%)
-    {
-      id_cobro: 1015,
-      nro_op: 217,
-      id_cobrador: cAntonela.id_cobrador,
-      fecha_hora: crearHoraHoy(8, 40),
-      monto_cobrado: 6500,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cAntonela.nombre },
-      observacion: 'Cobro zapatería peatonal'
-    },
-    {
-      id_cobro: 1016,
-      nro_op: 218,
-      id_cobrador: cAntonela.id_cobrador,
-      fecha_hora: crearHoraHoy(9, 30),
-      monto_cobrado: 7000,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cAntonela.nombre },
-      observacion: 'Cobro boutique centro'
-    },
-    {
-      id_cobro: 1017,
-      nro_op: 219,
-      id_cobrador: cAntonela.id_cobrador,
-      fecha_hora: crearHoraHoy(10, 20),
-      monto_cobrado: 0,
-      cuotas_equivalentes: 0,
-      motivo_no_pago: 'LOCAL_CERRADO',
-      cobradores: { nombre: cAntonela.nombre },
-      observacion: 'Visita sin pago: Local comercial cerrado por inventario matutino'
-    },
-
-    // Cobros de Oriana Paz (4 de 4 cobrados - 100%)
-    {
-      id_cobro: 1018,
-      nro_op: 221,
-      id_cobrador: cOriana.id_cobrador,
-      fecha_hora: crearHoraHoy(9, 10),
-      monto_cobrado: 5500,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cOriana.nombre },
-      observacion: 'Cobro bazar calle Alsina'
-    },
-    {
-      id_cobro: 1019,
-      nro_op: 222,
-      id_cobrador: cOriana.id_cobrador,
-      fecha_hora: crearHoraHoy(9, 45),
-      monto_cobrado: 4500,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cOriana.nombre },
-      observacion: 'Cobro dietética'
-    },
-    {
-      id_cobro: 1020,
-      nro_op: 223,
-      id_cobrador: cOriana.id_cobrador,
-      fecha_hora: crearHoraHoy(10, 35),
-      monto_cobrado: 6000,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cOriana.nombre },
-      observacion: 'Cobro cuota gimnasio'
-    },
-    {
-      id_cobro: 1021,
-      nro_op: 224,
-      id_cobrador: cOriana.id_cobrador,
-      fecha_hora: crearHoraHoy(11, 50),
-      monto_cobrado: 7500,
-      cuotas_equivalentes: 1,
-      cobradores: { nombre: cOriana.nombre },
-      observacion: 'Cobro ferretería industrial'
+      cobradores: { nombre: cAriel.nombre },
+      observacion: 'Cobro cuota diaria en circuito comercial'
     },
   ];
 
@@ -434,6 +160,7 @@ export async function aplicarSimulacionOperacionalCompleta(): Promise<{
   try {
     localStorage.setItem('credit_on_cobradores', JSON.stringify(cobradores));
     localStorage.setItem('credit_on_cartera_operaciones', JSON.stringify(operaciones));
+    historialCobros.sort((a, b) => new Date(b.fecha_hora || 0).getTime() - new Date(a.fecha_hora || 0).getTime());
     localStorage.setItem('credit_on_historial_cobros', JSON.stringify(historialCobros));
   } catch (e) {
     console.warn('Error guardando simulación local:', e);

@@ -209,18 +209,6 @@ export const Cobradores: React.FC = () => {
         } catch {}
       }
 
-      // Si el total exigible es 0 o no hay cobros registrados, cargamos automáticamente la simulación completa
-      if (rendObtenidos.length === 0 || rendObtenidos.every((r) => r.total_exigible === 0)) {
-        try {
-          const rawHist = localStorage.getItem('credit_on_historial_cobros');
-          const hist = rawHist ? JSON.parse(rawHist) : [];
-          if (!Array.isArray(hist) || hist.length === 0) {
-            await aplicarSimulacionOperacionalCompleta();
-            return;
-          }
-        } catch {}
-      }
-
       setRendimientos(rendObtenidos);
     } catch (e: any) {
       setError(e.message || 'Error al cargar datos de cobradores');
@@ -412,7 +400,7 @@ export const Cobradores: React.FC = () => {
     const cobrador = cobradores.find(c => c.id_cobrador === cobradorId);
     const cobradorNombre = cobrador?.nombre?.toLowerCase() || '';
 
-    // Buscar primero en historial local para respuesta instantánea
+    // Buscar en historial local
     let cobrosLocales: CobroReciente[] = [];
     try {
       const rawHist = localStorage.getItem('credit_on_historial_cobros');
@@ -436,30 +424,39 @@ export const Cobradores: React.FC = () => {
       }
     } catch {}
 
-    if (cobrosLocales.length > 0) {
-      setHistorial(prev => ({ ...prev, [cobradorId]: cobrosLocales }));
-      return;
+    // Buscar en Supabase para obtener pagos de calle en vivo
+    let dbCobros: CobroReciente[] = [];
+    if (supabase) {
+      setHistorialLoading(cobradorId);
+      try {
+        const { data } = await supabase
+          .from('cobros')
+          .select('id_cobro, nro_op, fecha_hora, monto_cobrado, cuotas_equivalentes, motivo_no_pago')
+          .eq('id_cobrador', cobradorId)
+          .order('fecha_hora', { ascending: false })
+          .limit(50);
+        if (data) dbCobros = data;
+      } catch {
+        // silencioso
+      } finally {
+        setHistorialLoading(null);
+      }
     }
 
-    if (!supabase) {
-      setHistorial(prev => ({ ...prev, [cobradorId]: [] }));
-      return;
-    }
+    // Combinar, deduplicar y ordenar descendentemente (más nuevos arriba, más viejos abajo)
+    const mapa = new Map<string, CobroReciente>();
+    [...dbCobros, ...cobrosLocales].forEach((c) => {
+      const key = c.id_cobro ? String(c.id_cobro) : `${c.fecha_hora}_${c.nro_op}_${c.monto_cobrado}`;
+      if (!mapa.has(key)) {
+        mapa.set(key, c);
+      }
+    });
 
-    setHistorialLoading(cobradorId);
-    try {
-      const { data } = await supabase
-        .from('cobros')
-        .select('id_cobro, nro_op, fecha_hora, monto_cobrado, cuotas_equivalentes, motivo_no_pago')
-        .eq('id_cobrador', cobradorId)
-        .order('fecha_hora', { ascending: false })
-        .limit(20);
-      setHistorial(prev => ({ ...prev, [cobradorId]: data ?? [] }));
-    } catch {
-      // silencioso
-    } finally {
-      setHistorialLoading(null);
-    }
+    const ordenados = Array.from(mapa.values()).sort(
+      (a, b) => new Date(b.fecha_hora || 0).getTime() - new Date(a.fecha_hora || 0).getTime()
+    );
+
+    setHistorial(prev => ({ ...prev, [cobradorId]: ordenados }));
   };
 
   /* ─── Indicadores globales ─── */

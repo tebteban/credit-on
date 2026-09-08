@@ -133,7 +133,9 @@ export const DashboardPatrimonio: React.FC<DashboardPatrimonioProps> = ({ onNavi
           setCobrosRaw((prev) => {
             const mapa = new Set(prev.map((p) => p.id_cobro));
             const nuevos = dbCobros.filter((dc) => !mapa.has(dc.id_cobro));
-            return [...nuevos, ...prev];
+            const combinados = [...nuevos, ...prev];
+            combinados.sort((a, b) => new Date(b.fecha_hora || 0).getTime() - new Date(a.fecha_hora || 0).getTime());
+            return combinados;
           });
         }
       } catch (err) {

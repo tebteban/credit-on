@@ -476,7 +476,19 @@ export const Clientes: React.FC = () => {
           if (data) dbHist = data;
         } catch {}
       }
-      setHistorialData([...localHist, ...dbHist]);
+      // Deduplicar entre local y remoto por id_cobro o firma temporal/monto
+      const mapa = new Map<string, any>();
+      [...dbHist, ...localHist].forEach((item: any) => {
+        const key = item.id_cobro ? String(item.id_cobro) : `${item.fecha_hora}_${item.monto_cobrado}_${item.motivo_no_pago || ''}`;
+        if (!mapa.has(key)) {
+          mapa.set(key, item);
+        }
+      });
+      // Orden cronológico estricto: más nuevos arriba, más viejos abajo (DESC)
+      const ordenados = Array.from(mapa.values()).sort(
+        (a: any, b: any) => new Date(b.fecha_hora || 0).getTime() - new Date(a.fecha_hora || 0).getTime()
+      );
+      setHistorialData(ordenados);
     } catch {
       setHistorialData([]);
     } finally {

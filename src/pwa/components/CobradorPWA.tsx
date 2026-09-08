@@ -31,6 +31,7 @@ import { isSupabaseConfigured, supabase } from '../../renderer/src/lib/supabase'
 import { PaymentCascadeService } from '../../services/payment-service';
 import { generarCuotasSchedule } from '../../core/schedule-engine';
 import { COBRADORES_CANONICOS } from '../../renderer/src/utils/cobradores-catalogo';
+import { CREDIT_ON_BUILD_VERSION } from '@core/version';
 
 export interface CobradorPWAProps {
   modoStandalone?: boolean;
@@ -75,6 +76,28 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
 }) => {
   const [cobradores, setCobradores] = useState<CobradorItem[]>(COBRADORES_DEFAULT);
   
+  // =========================================================================
+  // DETECCIÓN DE NUEVA VERSIÓN DE GIT (VERSION BUSTER & FORCED LOGOUT)
+  // =========================================================================
+  if (typeof window !== 'undefined') {
+    const versionGuardada = localStorage.getItem('credit_on_build_version');
+    if (versionGuardada !== CREDIT_ON_BUILD_VERSION) {
+      console.log(`[VersionBuster] Nueva versión detectada: ${CREDIT_ON_BUILD_VERSION} (previa: ${versionGuardada}). Purgando sesión y caché...`);
+      localStorage.setItem('credit_on_build_version', CREDIT_ON_BUILD_VERSION);
+      localStorage.removeItem('credit_on_pwa_sesion_activa');
+      localStorage.removeItem('credit_on_pwa_usuario_cobrador');
+      localStorage.removeItem('credit_on_cartera_operaciones');
+      localStorage.removeItem('credit_on_cobradores');
+      localStorage.removeItem('credit_on_historial_cobros');
+      try {
+        localDb.guardarHojaDeRuta([]);
+      } catch {}
+      if ('caches' in window) {
+        caches.keys().then((keys) => keys.forEach((k) => caches.delete(k)));
+      }
+    }
+  }
+
   // Cobrador ID recordado o por defecto
   const [cobradorId, setCobradorId] = useState<number>(() => {
     if (typeof window !== 'undefined') {
@@ -649,7 +672,7 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
         }
       }
 
-      // Guardar en historial de cobros general
+      // Guardar en historial de cobros general ordenado descendentemente
       const histStr = localStorage.getItem('credit_on_historial_cobros');
       const hist: any[] = histStr ? JSON.parse(histStr) : [];
       hist.unshift({
@@ -661,6 +684,7 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
         cobradores: { nombre: cobradorNombre },
         observacion: `Cobro asentado desde Terminal de Cobrador (PWA en calle)`
       });
+      hist.sort((a, b) => new Date(b.fecha_hora || 0).getTime() - new Date(a.fecha_hora || 0).getTime());
       localStorage.setItem('credit_on_historial_cobros', JSON.stringify(hist.slice(0, 100)));
       window.dispatchEvent(new Event('credit_on_storage_update'));
     } catch (e) {
@@ -683,6 +707,7 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
         observacion: notas || `Visita sin pago registrada desde Terminal Móvil: ${motivo}`,
         cobradores: { nombre: cobradorNombre }
       });
+      hist.sort((a, b) => new Date(b.fecha_hora || 0).getTime() - new Date(a.fecha_hora || 0).getTime());
       localStorage.setItem('credit_on_historial_cobros', JSON.stringify(hist.slice(0, 100)));
       window.dispatchEvent(new Event('credit_on_storage_update'));
     } catch (e) {
@@ -868,7 +893,7 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
   };
 
   const paradasFiltradas = useMemo(() => {
-    return paradas.filter((p) => {
+    const filtradas = paradas.filter((p) => {
       const matchTexto =
         p.cliente.toLowerCase().includes(filtroTexto.toLowerCase()) ||
         p.domicilio.toLowerCase().includes(filtroTexto.toLowerCase()) ||
@@ -884,6 +909,17 @@ export const CobradorPWA: React.FC<CobradorPWAProps> = ({
       }
       return true;
     });
+
+    if (filtroEstado === 'COBRADOS') {
+      // Los nuevos cobros se posicionan arriba y los más viejos abajo
+      return [...filtradas].sort((a, b) => {
+        const horaA = a.hora_visita || '00:00';
+        const horaB = b.hora_visita || '00:00';
+        return horaB.localeCompare(horaA);
+      });
+    }
+
+    return filtradas;
   }, [paradas, filtroTexto, filtroEstado]);
 
   return (

@@ -25,21 +25,53 @@ import {
   LogOut,
   Wifi,
 } from 'lucide-react';
+import { CREDIT_ON_BUILD_VERSION } from '@core/version';
 import logoCreditOn from './assets/logo-credit-on.jpg';
 
 const Backoffice: React.FC = () => {
+  // Validación de versión de compilación para invalidación de cachés residuales
+  if (typeof window !== 'undefined') {
+    const versionGuardada = localStorage.getItem('credit_on_build_version');
+    if (versionGuardada !== CREDIT_ON_BUILD_VERSION) {
+      console.log(`[App] Nueva versión detectada: ${CREDIT_ON_BUILD_VERSION}. Purgando datos residuales...`);
+      localStorage.setItem('credit_on_build_version', CREDIT_ON_BUILD_VERSION);
+      localStorage.removeItem('credit_on_cartera_operaciones');
+      localStorage.removeItem('credit_on_cobradores');
+      localStorage.removeItem('credit_on_historial_cobros');
+      localStorage.removeItem('credit_on_pwa_sesion_activa');
+      localStorage.removeItem('credit_on_pwa_usuario_cobrador');
+    }
+  }
+
   const [vistaActual, setVistaActual] = useState<
     'patrimonio' | 'clientes' | 'cobradores' | 'stock' | 'alta' | 'cierre' | 'hoja' | 'pwa'
   >('patrimonio');
 
   const [modalGuiaAbierto, setModalGuiaAbierto] = useState(false);
-  const [pwaSesionActiva, setPwaSesionActiva] = useState<boolean>(true);
-  const [pwaCobradorId, setPwaCobradorId] = useState<number>(1);
+  const [pwaSesionActiva, setPwaSesionActiva] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('credit_on_pwa_sesion_activa') === 'true';
+    }
+    return false;
+  });
+  const [pwaCobradorId, setPwaCobradorId] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const raw = localStorage.getItem('credit_on_pwa_usuario_cobrador');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed?.id) return Number(parsed.id);
+        }
+      } catch {}
+    }
+    return 1;
+  });
   const [cobradoresNombres] = useState<Record<number, string>>({
-    1: 'Ariel',
-    2: 'Álvaro',
-    3: 'Antonela',
-    4: 'Carlos',
+    1: 'Ariel Gómez',
+    2: 'Carlos Mendilaharzu',
+    3: 'Álvaro Morales',
+    4: 'Mauro Sánchez',
+    5: 'Antonela Rossi',
   });
 
   const [usuario, setUsuario] = useState<{

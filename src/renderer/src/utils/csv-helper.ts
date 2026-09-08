@@ -60,10 +60,10 @@ export const PLANTILLAS: Record<TipoPlantilla, PlantillaDefinicion> = {
       'Cobrador'
     ],
     ejemplos: [
-      ['PÉREZ JUAN CARLOS', '28491203', '385-4123456', 'Av. Belgrano 1420 - Centro', '100000', '20', '7500', '12', '0', 'EFECTIVO', 'Carlos Mendilaharzu'],
-      ['COMERCIAL EL AMIGO', '30112233', '385-5987654', 'Libertad 840 - Huaico Hondo', '250000', '24', '15000', '18', '0', 'PRODUCTO', 'Mauro Sánchez'],
-      ['GÓMEZ MARÍA LAURA', '33445566', '385-6112233', 'Roca Sur 245 - Cabildo', '80000', '16', '6500', '4', '1', 'EFECTIVO', 'Juan Pérez'],
-      ['TALLER MECÁNICO RODRÍGUEZ', '25667788', '385-4889900', 'Av. Colón Sur 3100', '350000', '24', '21000', '6', '3', 'PRODUCTO', 'Lucas Albarracín']
+      ['PÉREZ JUAN CARLOS', '28456123', '385-4123456', 'Av. Belgrano 1420 - Centro', '100000', '26', '5000', '2', '0', 'EFECTIVO', 'Ariel Gómez'],
+      ['GÓMEZ MARÍA LAURA', '33445566', '385-6112233', 'Roca Sur 245 - B° Cabildo', '80000', '26', '4000', '0', '0', 'EFECTIVO', 'Ariel Gómez'],
+      ['RODRÍGUEZ HUGO O.', '25667788', '385-4889900', 'Av. Colón Sur 3100 - B° Ej. Argentino', '350000', '42', '12000', '4', '0', 'PRODUCTO', 'Ariel Gómez'],
+      ['BENÍTEZ CLAUDIO A.', '29887112', '385-4771234', 'Calle 12 N° 450 - B° Mishqui Mayu', '60000', '26', '3000', '0', '0', 'EFECTIVO', 'Carlos Mendilaharzu']
     ],
     descripcion: 'Padrón de clientes con operaciones de crédito vigentes y avance de cuotas'
   }
